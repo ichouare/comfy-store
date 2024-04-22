@@ -4,10 +4,46 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Root from  './routes/root';
+import ErrorPage from "./error-page";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element : <Root />,
+//     errorElement :  <ErrorPage/>,
+//     children:[
+//       {
+//         path : "page/:id",
+//         element : <div>hello word</div>,
+//       },
+//     ],
+    
+//   },
+//   {
+//     path: "/home",
+//     element : <ErrorPage/>
+//   },
+//   {
+//     path: "contact/:id",
+//     element :<div> hello contact </div>
+//   }
+// ]);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    
+<BrowserRouter>
+<App />
+     {/* <RouterProvider router={router}  /> */}
+</BrowserRouter>
+
   </React.StrictMode>
 );
 
