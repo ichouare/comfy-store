@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 
 
 const Authnav = () => {
@@ -14,6 +14,7 @@ const Authnav = () => {
                 <Link  to="/login" >create Account</Link>
             </button> 
         </div>
+    
         </div>
     )
 }

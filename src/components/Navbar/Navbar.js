@@ -1,9 +1,10 @@
 import React from 'react'
 import { BsCart3 , BsMoonFill} from "react-icons/bs";
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import './styles.css'
-
+// import Authnav from './components/authentication/Authnav.js'
+import Authnav  from '../authentication/Authnav';
 const Navbar = () => {
 
   const status = ({ isActive, isPending }) =>
@@ -25,15 +26,19 @@ const Navbar = () => {
                   }] 
             
   return (
-    
-    <nav className='w-full h-[80px]   flex flex-row items-center justify-center '>
-    <div className='w-[90%] max-w-[70rem]  max-sm:w-full flex flex-row items-center justify-between '>
-    <div className='w-[45px] h-[45px]   p-0 '>
-      <NavLink  to="/" className='w-full h-full bg-blue-400  text-5xl text-white grid place-content-center rounded-md p-0 pb-2'>
+    <>
+    <nav className='w-full flex flex-col  items-center     justify-center '>
+    <Authnav/>
+    <div className='w-[85%] max-w-[70rem]  max-sm:w-full flex flex-row items-center justify-between '>
+    <div className='w-[45px] h-[80px] flex items-center justify-center  p-0 '>
+      <NavLink  to="/" className='w-full h-[50px] bg-blue-400  text-5xl text-white grid place-content-center rounded-md p-0 pb-2 max-sm:hidden'>
           c
       </NavLink>
+      <span>
+
+      </span>
     </div>
-    <div className={'w-[400px] h-full flex flex-row items-center justify-evenly '} >
+    <div className={'w-[400px] h-full flex flex-row items-center justify-evenly max-sm:hidden '} >
       {
        
         element.map(ele => {
@@ -58,7 +63,9 @@ const Navbar = () => {
         </Link>
     </div>    
     </div>
+    <Outlet/>
     </nav>
+    </>
   )
 }
 

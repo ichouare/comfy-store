@@ -6,21 +6,25 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './components/Home/Home'
 import About from './components/about/about';
 import Products from './components/Products/Products';
-
+import Login  from './components/login/login';
+import Cart from './components/Cart/Cart';
 function App() {
   return (
       <>
-      <Authnav />
-      <Navbar />
-      <section className='w-full min-h-screen   flex flex-row items-start justify-center max-sm:px-4'>
+      {/* <Authnav />
+      <Navbar /> */}
+      <section className='w-screen min-h-screen   flex flex-row items-start justify-center '>
     <Routes>
+      <Route path='/login' element={<Login />} />
+      <Route element={<Navbar />}>
       <Route path='/' element={<Home />} />
-    </Routes>
-    <Routes>
       <Route path='/about' element={<About />} />
-    </Routes>
-    <Routes>
+
       <Route path='/product' element={<Products />} />
+
+      <Route path='/cart' element={<Cart />} />
+      </Route>
+
     </Routes>
 
       </section>
