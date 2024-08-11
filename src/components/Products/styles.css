@@ -1,0 +1,189 @@
+/* :root {
+  color-scheme: light;
+  --pf: 212 100% 44%;
+  --sf: 247 47% 36%;
+  --af: 310 49% 45%;
+  --nf: 217 92% 3%;
+  --pc: 231 100% 93%;
+  --sc: 256 40% 88%;
+  --ac: 316 56% 91%;
+  --nc: 229 10% 80%;
+  --inc: 192 18% 16%;
+  --suc: 181 16% 14%;
+  --wac: 32 9% 16%;
+  --erc: 2 19% 15%;
+  --rounded-box: 1rem;
+  --rounded-btn: .5rem;
+  --rounded-badge: 1.9rem;
+  --animation-btn: .25s;
+  --animation-input: .2s;
+  --btn-text-case: uppercase;
+  --btn-focus-scale: .95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: .5rem;
+  --p: 212 100% 51%;
+  --s: 247 47% 43%;
+  --a: 310 49% 52%;
+  --n: 217 92% 10%;
+  --b1: 0 0% 100%;
+  --b2: 217 100% 97%;
+  --b3: 219 44% 92%;
+  --bc: 214 30% 32%;
+  --in: 192 93% 78%;
+  --su: 182 47% 66%;
+  --wa: 32 62% 84%;
+  --er: 0 63% 72%
+}
+.range {
+  height: 1.5rem;
+  width: 100%;
+  cursor: pointer;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-appearance: none;
+  --range-shdw: 214 30% 32%;
+  overflow: hidden;
+  background-color: transparent;
+  border-radius: var(--rounded-box, 1rem)
+}
+.range:focus-visible::-webkit-slider-thumb {
+  --focus-shadow: 0 0 0 6px hsl(var(--b1)) inset, 0 0 0 2rem hsl(var(--range-shdw)) inset
+}
+
+.range:focus-visible::-moz-range-thumb {
+  --focus-shadow: 0 0 0 6px hsl(var(--b1)) inset, 0 0 0 2rem hsl(var(--range-shdw)) inset
+}
+
+.range::-webkit-slider-runnable-track {
+  height: .5rem;
+  width: 100%;
+  background-color: hsl(var(--bc) / .1);
+  border-radius: var(--rounded-box, 1rem)
+}
+
+.range::-moz-range-track {
+  height: .5rem;
+  width: 100%;
+  background-color: hsl(var(--bc) / .1);
+  border-radius: var(--rounded-box, 1rem)
+}
+
+.range::-webkit-slider-thumb {
+  position: relative;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+  border-radius: var(--rounded-box, 1rem);
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-appearance: none;
+  top: 50%;
+  color: hsl(var(--range-shdw));
+  transform: translateY(-50%);
+  --filler-size: 100rem;
+  --filler-offset: .6rem;
+  box-shadow: 0 0 0 3px hsl(var(--range-shdw)) inset,var(--focus-shadow, 0 0),calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size)
+}
+
+.range::-moz-range-thumb {
+  position: relative;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+  border-radius: var(--rounded-box, 1rem);
+  top: 50%;
+  color: hsl(var(--range-shdw));
+  --filler-size: 100rem;
+  --filler-offset: .5rem;
+  box-shadow: 0 0 0 3px hsl(var(--range-shdw)) inset,var(--focus-shadow, 0 0),calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size)
+}
+
+.range-primary {
+  --range-shdw: var(--p)
+}
+
+
+
+
+/* input[type="range"]:focus::-webkit-slider-thumb {
+    outline: 3px solid #808080;
+    outline-offset: 0.125rem;
+  } */
+/* input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    outline: 5px solid blue;
+    /* background-color: #FFF !important;  */
+    /* border-radius: 50%;
+    cursor: pointer;
+    margin-top: -10px; */
+    
+
+  /* } */ 
+
+
+  input[type="range"].range {
+    -webkit-appearance: none;
+    appearance: none;
+    
+    /* background: #f1f2f3; */
+   
+    /* overflow: hidden; */
+  }
+  .rangecontainer
+  {
+    width: 80%;
+    height: 20px;
+    overflow: hidden;
+    display: grid;
+    align-items: center;
+
+  }
+  .range {
+    /* -webkit-appearance: none;
+    appearance: none; */
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    height: 20px;
+    background: #EEE;
+    outline: none;
+    border-radius: 15px;
+    overflow: hidden;
+    /* /* background-color: #add8e6; */
+    /* border-radius: 0.5rem; */
+    height: 0.5rem; 
+  }
+
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 0 50% 50% 0 ;
+    background: #FFF;
+    cursor: pointer;
+    border: 2px solid blue;
+    /* margin-bottom: -20px; */
+    box-shadow: -407px 0px 0px 400px blue;
+  }
+
+
+
+  .checkout{
+    /* -webkit-appearance: none;
+    appearance: none; */
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    border: 1px solid blue;
+    background: transparent;
+  }
+
+ 
+  
