@@ -1,5 +1,12 @@
-.isactive{
+
+
+.active{
+    /* width: 100px;
+    height: 100px; */
     background-color: #031431;
     color: #C6C9D2;
+    transition: width 0.5s ease;
+    color: white;
+    padding: 8px;
     border-radius: 5px;
 }

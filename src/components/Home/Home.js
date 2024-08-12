@@ -6,6 +6,7 @@ import { Outlet } from 'react-router'
 import AuthUser from '../../hooks/AuthUser'
 import AuthContext from '../../context/AuthProvider'
 import authIntance from '../../axois/apiInstance'
+import Navbar from '../Navbar/Navbar'
 
 const Home = () => {
   const {auth, setAuth} = useContext(AuthContext)
@@ -31,7 +32,8 @@ const Home = () => {
   return (
     
     <>
-    <section className='w-[80%]  max-sm:w-full  min-h-full  h-full overflow-x-hidden  pe-6 flex flex-col  items-center justify-start m-0   max-sm:px-4'>
+    
+    <section className='w-[100%]   max-sm:w-full    overflow-hidden   px-6 flex flex-col items-center  '>
       <div className='w-[100%]  max-sm:w-full   flex flex-row items-center justify-start'>
 
       <article className="w-full min-h-[600px]  flex flex-col items-start justify-around py-5  ">
