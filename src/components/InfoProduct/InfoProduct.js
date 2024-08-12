@@ -45,12 +45,12 @@ const ProductInfo = ({data}) => {
         console.log("handleCart:", cart);
 
     return (
-        <section className='w-full   h-[100%]   p-auto flex   p-10'>
-         <div className='h-full w-[50%]  flex items-center justify-center '>
-        <img src={image} alt={name} className='w-[60%]  object-fill ' />
+        <section className='w-full min-w-full   h-[100%]    flex flex-row  p-16 gap-8  items-start justify-start    '>
+         <div className='w-[40%] min-w-[40%] h-[400px]  '>
+        <img src={image} alt={name} className=' w-full h-full object-fill ' />
 
          </div>
-         <div className='h-full w-[50%]   flex flex-col justify-center gap-y-8  '>
+         <div className=' flex flex-col justify-center gap-y-8  '>
             <h1 className='text-4xl text-[#474F6A] font-bold'>{name}</h1>
             <h4 className='text-[#474F6A] text-base'>{free ? "Free" : "$" + price}</h4>
        
@@ -68,7 +68,6 @@ const ProductInfo = ({data}) => {
             onClick={() => handleCart()}
             >add to cart</button>
          </div>
-         <div></div>
         </section>
     )
 }

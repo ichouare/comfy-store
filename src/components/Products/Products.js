@@ -76,8 +76,8 @@ useEffect(() => {
 }, [])
 
 return (
-<section className='w-[100%]  max-sm:w-full  min-h-screen h-full bg-[#FFF]  flex flex-col items-center  p-10  '>
-    <section className='w-[90%] max-w-[70rem] max-sm:w-full  min-h-screen h-full bg-[#FFF]  items-center  py-4 flex flex-col gap-4' >
+<section className='w-[100%]  max-sm:w-full  min-h-full h-full   flex flex-col items-center  p-10  '>
+    <section className='w-[90%] max-w-[70rem] max-sm:w-full  min-h-full h-full bg-[#FFF]  items-center  py-4 flex flex-col gap-4' >
         <form className='filter w-full lg:h-[300px] bg-[#F0F6FF]  grid sm:grid-cols-2 lg:grid-cols-4  gap-6 flex-wrap p-3 px-8 ' onSubmit={handlefilter} method="POST"  ref={form}>
             <div className='flex flex-col gap-2 place-content-center  '>
                     <label forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium '> serach Product </label>
