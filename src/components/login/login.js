@@ -14,7 +14,7 @@ const Login = () => {
   const focusRef = useRef(null)
   const {auth, setAuth} = useContext(AuthContext)
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const from = location.state?.from?.pathname || '/'
 
   useEffect(() => {
@@ -47,6 +47,7 @@ const Login = () => {
         setpass('')
         setusername('')
         toast.success("user is successfuly register")
+        navigate(from, {replace : true})   
         setTimeout(() => {
           setRegister(true)
         }, 2000)
@@ -77,26 +78,20 @@ const Login = () => {
     e.preventDefault();
     if(email && pass){
       try{
-        const response = await apiInstance.post('api/token/',
+        const response = await apiInstance.post('login/',
           {
           "username" : email,
           "password" :  pass,
-        },
-
-      )
+        },)
         const {refresh, access} = response.data
   
-        setAuth({
-          refresh,
-          access,
-          "login" : true
-        })
+        setAuth({refresh, access, "login" : true})
         setEmail('')
-       setpass('')
+        setpass('')
        toast.success("user is successfuly login")
-       setTimeout(()=>{
-        navigate(from, {replace : true})   
-       }, 1000)
+       navigate(from, {replace : true})   
+      //  setTimeout(()=>{
+      //  }, 500)
       }catch (error)
       {
         setAuth({

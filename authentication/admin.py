@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import User
 
 
 
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in CustomUser._meta.fields]
+class UserAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in User._meta.fields]
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(User, UserAdmin)

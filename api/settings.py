@@ -81,7 +81,10 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 
 }
 
@@ -95,7 +98,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'ALGORITHM': 'HS256',
     'AUTH_HEADER_TYPES': ('Bearer',),
-    "AUTH_COOKIE_SECURE": False,
+    "AUTH_COOKIE_SECURE": True,
     'AUTH_COOKIE': 'access',  # Set the cookie name for access token
     "AUTH_COOKIE_REFRESH": "refresh",
     'AUTH_COOKIE_HTTP_ONLY': True, 
@@ -104,15 +107,6 @@ SIMPLE_JWT = {
 
 }
 
-#  "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),  # The lifetime of the access token
-#     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),  # The lifetime of the access token
-#     "AUTH_COOKIE": "access_token",
-#     "AUTH_COOKIE_REFRESH": "refresh_token",
-#     "AUTH_COOKIE_DOMAIN": None,
-#     "AUTH_COOKIE_SECURE": False,
-#     "AUTH_COOKIE_HTTP_ONLY": True,
-#     "AUTH_COOKIE_PATH": "/",
-#     "AUTH_COOKIE_SAMESITE": "Lax",
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
@@ -146,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "authentication.CustomUser"
+AUTH_USER_MODEL = "authentication.User"
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -182,14 +176,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # }
 
 
+
+
+
+
 CORS_ALLOWED_ORIGINS = [
-
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    "http://localhost:3000",  # Add your frontend's URL
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies to be sent
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',  # Add your frontend URL
-]
+# csrf_protect = False #
+
+
+
+
+
