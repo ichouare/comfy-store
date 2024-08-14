@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import  CustomUser
+from authentication.models import  User
 # Create your models here.
 
 
@@ -37,7 +37,7 @@ class Company(models.Model):
 
 
 class Order(models.Model):
-    User_id = models.ForeignKey(CustomUser, blank=True, null=True,  on_delete=models.PROTECT)
+    User_id = models.ForeignKey(User, blank=True, null=True,  on_delete=models.PROTECT)
     name = models.CharField(max_length=250)
     date = models.CharField(max_length=100)
     

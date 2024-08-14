@@ -10,7 +10,7 @@ from rest_framework.decorators import permission_classes, authentication_classes
 from .serializers import RegisterUserSerialzer
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import CustomUser
+from .models import User
 from django.conf import settings
 
 
@@ -26,9 +26,9 @@ def get_tokens_for_user(user):
     }
 
 @api_view(['POST', ])
+@permission_classes([AllowAny])
 def sign_up(request) :
     if request.method == 'POST':
-        print(request.data)
         serializer =  RegisterUserSerialzer(data=request.data)
 
         if serializer.is_valid():
@@ -48,7 +48,8 @@ class refresh_token(APIView):
  permission_classes = [AllowAny]
  def post(self, request, format=None):
     response = Response()
-    refresh_token = request.COOKIES['refresh']
+    refresh_token = request.cookies.get('refresh')
+    print("refresh_take_old", refresh_token)
     if refresh_token is None:
         return Response("not refresh token is provide in cookies" , status=400)
         # Attempt to create a RefreshToken instance from the refresh token
@@ -61,68 +62,65 @@ class refresh_token(APIView):
                     
                     key=settings.SIMPLE_JWT["AUTH_COOKIE"],
                     value=access_token,
-                    httponly=True,
-                    secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                    samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                    httponly=False,
+                    # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                    # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
                 )
         response.set_cookie(
                     
                     key=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"],
                     value=str(refresh),
-                    httponly=True,
-                    secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                    samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                    httponly=False,
+                    # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                    # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
                 )
         response.data = {"detail": "Tokens refreshed successfully"}
         response.status_code = 200
         return response
 
 class Login(APIView):
+    permission_classes = [AllowAny]
     def post(self, request, format=None):
-        print("worked \n")
         data = request.data
         username = data['username']
         password = data['password']
         response = Response()
         user = authenticate(username=username, password=password)
-        usr = CustomUser.objects.get(username=username)
-        print(username, password)
-        print(user)
         if user is not None:
-            # login(request, user)
-            refresh  = RefreshToken.for_user(usr)
-            refresh_token = str(refresh),
-            access_token = str(refresh.access_token),
-            response = Response({
-                'refresh':  refresh_token,
-                'access': access_token,
-            })
+            login(request, user)
+            tokens  = get_tokens_for_user(user)
 
-            print("refresh========>", refresh_token)
+            refresh_token = tokens.get('refresh')
+            access_token = tokens.get('access')
+            print("refresh_token" , refresh_token)
+            response = Response({"detail": "Login successful"}, status=200)
+
+   
 
             # Set the cookies
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE"],
-                value=access_token,
-                httponly=True,
-                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                value=access_token,  # Explicitly specify the value
+                httponly=False,
+                # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
             )
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"],
-                value=refresh_token,
-                httponly=True,
-                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                value=refresh_token,  # Explicitly specify the value
+                httponly=False,
+                # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
             )
 
+            # Debugging statements can be removed
+            print("Access Token Cookie Set:", response.cookies.get('access'))
+            print("Refresh Token Cookie Set:", response.cookies.get('refresh'))
             return response
         else:
             return Response({"detail": "Invalid credentials"}, status=400)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
-# @authentication_classes(['JWTAuthentication'])
 def logout(request):
     if(request.method == 'POST'):
         print("here")

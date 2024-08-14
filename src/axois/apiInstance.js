@@ -1,13 +1,13 @@
 import axios from "axios";
 import  apiInstance from './axios'
 
-const authIntance = axios.create({
-    baseURL: ' http://127.0.0.1:8000/',
-    withCredentials: true,
-})
+// const apiInstance = axios.create({
+//     baseURL: ' http://localhost:8000/',
+//     withCredentials: true,
+// })
 
 
-authIntance.interceptors.response.use((response) => {
+apiInstance.interceptors.response.use((response) => {
     
     return response;
 }, async (error) => {
@@ -20,7 +20,7 @@ authIntance.interceptors.response.use((response) => {
                 // Get all information about original request 
                 const originalRequest = error.config;
                 //use second time the same request but with new acess token 
-                return authIntance(originalRequest);
+                return apiInstance(originalRequest);
             }
             catch(error)
             {
@@ -32,4 +32,4 @@ authIntance.interceptors.response.use((response) => {
 
 
 
-export default authIntance;
+export default apiInstance;

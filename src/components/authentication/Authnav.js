@@ -8,18 +8,14 @@ import apiInstance from "../../axois/axios";
 
 const Authnav = () => {
     const {auth, setAuth} = useContext(AuthContext)
+    console.log("Auth nav:", auth);
     AuthUser()
     const logouthandler = async () => {
-        const response = await apiInstance.post('logout/',{
-            "username" : "issam",
-            "password" : "ana1998ana"
-        })
+        const response = await apiInstance.post('logout/')
         console.log(response)
         if(response?.status == 200)
         {
-            setAuth({
-                "login": false,
-            })
+            setAuth(true)
         console.log(auth)
         }
 
@@ -31,16 +27,16 @@ const Authnav = () => {
             <button>
                 <Link  to="/login"  >sign in / Guest</Link>
             </button> 
-            <button>
                 {
-                    auth.login ? 
+                    auth ? 
                     <button className="btn capitalize px-3 py-1 bg-blue-600 text-base text-white rounded-md"
                     onClick={() => logouthandler()}
                     >logout</button>
                     :
-                    <Link  to="/login"   >create Account</Link>
-                }
-            </button> 
+                    <button className="btn capitalize px-3 py-1 bg-blue-600 text-base text-white rounded-md">
+                        <Link  to="/login"   >create Account</Link>
+                    </button>
+                } 
         </div>
     
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext} from 'react'
 import { useParams } from'react-router-dom'
-import authIntance from '../../axois/apiInstance'
+import authIntance from '../../axois/axios'
 import AuthContext from '../../context/AuthProvider'
 
 

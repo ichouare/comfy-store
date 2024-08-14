@@ -1,12 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react'
 import Product  from '../Product/product'
+import axios from 'axios'
 
 import MainImg from '../../assets/hero1-deae5a1f.webp'
 import { Outlet } from 'react-router'
 import AuthUser from '../../hooks/AuthUser'
 import AuthContext from '../../context/AuthProvider'
-import authIntance from '../../axois/apiInstance'
+import authIntance from '../../axois/axios'
 import Navbar from '../Navbar/Navbar'
+import apiInstance from '../../axois/axios'
 
 const Home = () => {
   const {auth, setAuth} = useContext(AuthContext)
@@ -17,7 +19,9 @@ const Home = () => {
     // fetchData()
     const getData = async () => {
       try{
-        const response = await authIntance.get('/products/fourProduct')
+        const response = await apiInstance.get('/products/fourProduct/', {
+          withCredentials: true,
+        })
         const {data} = response
         console.log(data);
         setFourProduct(data)
@@ -33,7 +37,7 @@ const Home = () => {
     
     <>
     
-    <section className='w-[100%]   max-sm:w-full    overflow-hidden   px-6 flex flex-col items-center  '>
+    <section className='w-[100%]   min-w-full  min-h-full h-full    overflow-hidden   px-6 flex flex-col items-center  '>
       <div className='w-[100%]  max-sm:w-full   flex flex-row items-center justify-start'>
 
       <article className="w-full min-h-[600px]  flex flex-col items-start justify-around py-5  ">

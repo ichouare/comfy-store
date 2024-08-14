@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './styles.css'
 import Product  from '../Product/product'
-import authIntance from '../../axois/apiInstance'
+import authIntance from '../../axois/axios'
+import axios from 'axios'
 
 const Lists = ({elemments, setState,  state }) => {
        
@@ -68,7 +69,9 @@ const resetFilttre = () => {
 
 useEffect(() => {
         const getData = async () => {
-              const response = await  authIntance.get('/products/products')
+              const response = await  axios.get('/products/products', {
+                withCredentials: true,
+              })
               const {data} = response
               setData(data)
         } 
