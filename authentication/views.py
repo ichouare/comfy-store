@@ -46,18 +46,26 @@ def sign_up(request) :
 
 class refresh_token(APIView):
     permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        print("Refreshing token")
+        return Response("refresh_token", status=200)
+
     def post(self, request, format=None):
+        print("step--------------->0")
         response = Response()
-        refresh_token = request.COOKIES.get('refresh')
+        refresh_token = request.COOKIES['refresh']
         if refresh_token is None:
             print("step--------------->1")
             return Response("not refresh token is provide in cookies" , status=401)
             # Attempt to create a RefreshToken instance from the refresh token
         refresh = RefreshToken(refresh_token)
+        print("step--------------->", refresh)
         if refresh is None:
             print("step--------------->2")
             return Response("not refresh token is provide in cookies" , status=401)
         else:
+            print("ste3----÷----------->2")
             access_token = str(refresh.access_token)
             response.set_cookie(
                         
@@ -121,6 +129,7 @@ class Login(APIView):
             return Response({"detail": "Invalid credentials"}, status=400)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def logout(request):
     if(request.method == 'POST'):
         print("here")

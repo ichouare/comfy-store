@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -54,11 +55,11 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'authentication.middleware.JWTAuthMiddleware',
+    # 'authentication.middleware.JWTAuthMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
 
@@ -83,18 +84,18 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'api.authenticate.CustomJWTAuthentication',
+    # ),
+    #  'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 
 }
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_DELTA': timedelta(minutes=10),
@@ -108,6 +109,11 @@ SIMPLE_JWT = {
     'AUTH_COOKIE_HTTP_ONLY': True, 
     "AUTH_COOKIE_SAMESITE": "Lax",
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+
+     # custom  # Cookie name. Enables cookies if value is set.
+  'AUTH_COOKIE_DOMAIN': None,     # A string like "example.com", or None for standard domain cookie.
+  'AUTH_COOKIE_PATH': '/',        # The path of the auth cookie.
+  'AUTH_COOKIE_SAMESITE': 'Lax',  # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
      # Store the token in Htt
 
 }
@@ -192,6 +198,12 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies to be sent
 
 # csrf_protect = False #
+
+
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = None
+BASE_URL = os.getenv("BASE_URL")
+# CSRF_TRUSTED_ORIGINS = ['http://localhost', BASE_URL]
 
 
 

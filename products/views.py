@@ -16,12 +16,12 @@ def cart(request, *args, **kwargs):
 
 # @api_view(['GET', 'POST'])
 class all_products(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = productsSerialzer
 
 class fourProduct(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()[0:4]
     serializer_class = productsSerialzer
 

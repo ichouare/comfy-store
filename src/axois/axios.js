@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Redirect = () => {
     const navigate = useNavigate();
@@ -23,33 +23,17 @@ apiInstance.interceptors.response.use((response) => {
     return response;
 }, async (error) => { 
     
-    if(error?.response?.status === 401)
-    {  
-            try{
-                // Refresh the access token
-                const res = await  apiInstance.post('api/token/refresh/');
-                console.log("refresh==========>" , res);
-                if(res.status != 200)
-                    {
-                        
-                    console.log("refresh token using coookies httponly")
-                      throw new Error("access token not found")
-                    }
-                else{
-                    // Get all information about original request 
-                    const originalRequest = error.config;
-                    //use second time the same request but with new acess token 
-                    return apiInstance(originalRequest);
+    if(error?.response?.status == 401)
+        {  
+            const res = await  axios.post('http://localhost:8000/api/token/refresh/', {}, { withCredentials: true });
+            const originalRequest = error.config;
+            return axios(originalRequest);
 
-                }
-            }
-            catch(error)
-            {
-                console.log("refresh token using coookies")
-                return <Redirect />;
-    
-            }
     }
+    console.log("-------------->Token refreshe error: " + error);
+    return Promise.reject(error);
+
+    
 })
 
 
