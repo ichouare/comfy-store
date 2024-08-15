@@ -45,38 +45,39 @@ def sign_up(request) :
 
 
 class refresh_token(APIView):
- permission_classes = [AllowAny]
- def post(self, request, format=None):
-    response = Response()
-    refresh_token = request.cookies.get('refresh')
-    print("refresh_take_old", refresh_token)
-    if refresh_token is None:
-        return Response("not refresh token is provide in cookies" , status=400)
-        # Attempt to create a RefreshToken instance from the refresh token
-    refresh = RefreshToken(refresh_token)
-    if refresh is None:
-        return Response("not refresh token is provide in cookies" , status=400)
-    else:
-        access_token = str(refresh.access_token)
-        response.set_cookie(
-                    
-                    key=settings.SIMPLE_JWT["AUTH_COOKIE"],
-                    value=access_token,
-                    httponly=False,
-                    # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                    # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
-                )
-        response.set_cookie(
-                    
-                    key=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"],
-                    value=str(refresh),
-                    httponly=False,
-                    # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                    # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
-                )
-        response.data = {"detail": "Tokens refreshed successfully"}
-        response.status_code = 200
-        return response
+    permission_classes = [AllowAny]
+    def post(self, request, format=None):
+        response = Response()
+        refresh_token = request.COOKIES.get('refresh')
+        if refresh_token is None:
+            print("step--------------->1")
+            return Response("not refresh token is provide in cookies" , status=401)
+            # Attempt to create a RefreshToken instance from the refresh token
+        refresh = RefreshToken(refresh_token)
+        if refresh is None:
+            print("step--------------->2")
+            return Response("not refresh token is provide in cookies" , status=401)
+        else:
+            access_token = str(refresh.access_token)
+            response.set_cookie(
+                        
+                        key=settings.SIMPLE_JWT["AUTH_COOKIE"],
+                        value=access_token,
+                        httponly=True,
+                        secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                        samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                    )
+            response.set_cookie(
+                        
+                        key=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"],
+                        value=str(refresh),
+                        httponly=True,
+                        secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                        samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                    )
+            response.data = {"detail": "Tokens refreshed successfully"}
+            response.status_code = 200
+            return response
 
 class Login(APIView):
     permission_classes = [AllowAny]
@@ -92,7 +93,6 @@ class Login(APIView):
 
             refresh_token = tokens.get('refresh')
             access_token = tokens.get('access')
-            print("refresh_token" , refresh_token)
             response = Response({"detail": "Login successful"}, status=200)
 
    
@@ -101,16 +101,16 @@ class Login(APIView):
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE"],
                 value=access_token,  # Explicitly specify the value
-                httponly=False,
-                # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                httponly=True,
+                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
             )
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"],
                 value=refresh_token,  # Explicitly specify the value
-                httponly=False,
-                # secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-                # samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                httponly=True,
+                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
             )
 
             # Debugging statements can be removed

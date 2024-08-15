@@ -3,6 +3,7 @@ import './styles.css'
 import Product  from '../Product/product'
 import authIntance from '../../axois/axios'
 import axios from 'axios'
+import apiInstance from '../../axois/axios'
 
 const Lists = ({elemments, setState,  state }) => {
        
@@ -69,7 +70,7 @@ const resetFilttre = () => {
 
 useEffect(() => {
         const getData = async () => {
-              const response = await  axios.get('/products/products', {
+              const response = await  apiInstance.get('/products/products', {
                 withCredentials: true,
               })
               const {data} = response

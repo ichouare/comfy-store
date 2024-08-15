@@ -1,22 +1,24 @@
 import React, { useState, useContext, useEffect } from "react";
-import {Link, Outlet} from 'react-router-dom'
+import {Link, useNavigate, Outlet} from 'react-router-dom'
 import AuthContext  from "../../context/AuthProvider";
 import AuthUser from '../../hooks/AuthUser'
-import authIntance from "../../axois/apiInstance";
+import authIntance from "../../axois/axios";
 import apiInstance from "../../axois/axios";
 
 
 const Authnav = () => {
+    const navigate = useNavigate();
     const {auth, setAuth} = useContext(AuthContext)
     console.log("Auth nav:", auth);
     AuthUser()
     const logouthandler = async () => {
         const response = await apiInstance.post('logout/')
-        console.log(response)
+        
         if(response?.status == 200)
         {
-            setAuth(true)
-        console.log(auth)
+            setAuth(false)
+            navigate("/login");
+            console.log(auth)
         }
 
     }
