@@ -12,6 +12,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import User
 from django.conf import settings
+from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 
 
@@ -44,8 +45,8 @@ def sign_up(request) :
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class refresh_token(APIView):
-    permission_classes = [AllowAny]
+class refresh_token(TokenObtainPairView):
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         print("Refreshing token")
@@ -54,10 +55,10 @@ class refresh_token(APIView):
     def post(self, request, format=None):
         print("step--------------->0")
         response = Response()
-        refresh_token = request.COOKIES['refresh']
+        refresh_token = request.COOKIES.get('refresh')
         if refresh_token is None:
             print("step--------------->1")
-            return Response("not refresh token is provide in cookies" , status=401)
+            return Response("not refresh token is provide in cookies" , status=400)
             # Attempt to create a RefreshToken instance from the refresh token
         refresh = RefreshToken(refresh_token)
         print("step--------------->", refresh)
@@ -87,8 +88,8 @@ class refresh_token(APIView):
             response.status_code = 200
             return response
 
-class Login(APIView):
-    permission_classes = [AllowAny]
+class Login(TokenObtainPairView):
+    permission_classes = (AllowAny,)
     def post(self, request, format=None):
         data = request.data
         username = data['username']
@@ -132,7 +133,7 @@ class Login(APIView):
 @permission_classes([IsAuthenticated])
 def logout(request):
     if(request.method == 'POST'):
-        print("here")
+  
         response = Response()
         response.delete_cookie('access') 
         response.delete_cookie('refresh')
