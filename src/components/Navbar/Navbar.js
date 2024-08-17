@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <main className='w-full  min-w-full h-auto min-h-screen flex flex-col items-center justify-start  pb-4 overflow-y-scroll'>
       <Authnav />
-      <header className='bg-slate-50  w-full flex items-center justify-evenly py-4'>
+      <header className='bg-slate-50   w-[100%]   flex items-center justify-evenly py-4'>
 
         <div className='logo min-h-12 h-12  min-w-12 w-1 rounded-md bg-blue-400 grid place-content-center text-4xl text-white'>
             C
@@ -58,10 +58,10 @@ const Navbar = () => {
           {darkMode ? <MdDarkMode  className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}  /> : <CiLight className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}/>}
         </div>
         </header>
-        <main className='w-[80%]  h-full   flex items-center justify-center '>
+        <section className='w-full xl:w-[70%]     h-full   flex items-center justify-center   '>
           <Outlet/>
 
-        </main>
+        </section>
     </main>
   )
 }

@@ -17,12 +17,27 @@ def cart(request, *args, **kwargs):
 # @api_view(['GET', 'POST'])
 class all_products(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Product.objects.all()
+    # queryset = Product.objects.all()
     serializer_class = productsSerialzer
+
+    def list(self, request):  # overide the  list method inherited from ListModelMixin
+        print(request.query_params)
+        queryset = self.get_queryset()
+        serializer = productsSerialzer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
+    def get_queryset(self): # overide get_serializer_class method inherited from GenericAPIView
+        products = Product.objects.all()
+        return products
+
+    def get_serializer_class(self):  # overide get_queryset method inherited from GenericAPIView
+        return productsSerialzer
+
 
 class fourProduct(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Product.objects.all()[0:4]
+    queryset = Product.objects.all()[0:3]
     serializer_class = productsSerialzer
 
 

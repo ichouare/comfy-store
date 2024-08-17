@@ -4,6 +4,7 @@ import Product  from '../Product/product'
 import authIntance from '../../axois/axios'
 import axios from 'axios'
 import apiInstance from '../../axois/axios'
+import { IoGridOutline, IoMenu } from "react-icons/io5";
 
 const Lists = ({elemments, setState,  state }) => {
        
@@ -29,6 +30,7 @@ const Products = () => {
 
         const form = useRef()
         const [range , setRange] = useState(0)
+        const [gridState , setgridState] = useState(true)
         const value = useRef(0)
         const Company = ["all" ,"Mondeza", "Luxera", "comfora" ]
         const Category = ["all", "tables", "chairs", "kids", "sofas", "beds"]
@@ -70,18 +72,24 @@ const resetFilttre = () => {
 
 useEffect(() => {
         const getData = async () => {
-              const response = await  apiInstance.get('/products/products', {
+              const response = await  apiInstance.get('/products/products',
+              {
+                params: {
+                        category: category,
+                }
+              },
+               {
                 withCredentials: true,
               })
-              const {data} = response
+              const {data} = response 
               setData(data)
         } 
         getData()
-}, [])
+}, [category])
 
 return (
-<section className='w-[100%]  max-sm:w-full  min-h-full h-full   flex flex-col items-center  p-10  '>
-    <section className='w-[90%] max-w-[70rem] max-sm:w-full  min-h-full h-full bg-[#FFF]  items-center  py-4 flex flex-col gap-4' >
+<section className='w-[100%]  max-sm:w-full  min-h-full h-full   flex flex-col items-center   '>
+    <section className='w-[100%] max-w-[70rem] max-sm:w-full  min-h-full h-full   items-center  py-4 flex flex-col gap-4' >
         <form className='filter w-full lg:h-[300px] bg-[#F0F6FF]  grid sm:grid-cols-2 lg:grid-cols-4  gap-6 flex-wrap p-3 px-8 ' onSubmit={handlefilter} method="POST"  ref={form}>
             <div className='flex flex-col gap-2 place-content-center  '>
                     <label forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium '> serach Product </label>
@@ -134,10 +142,18 @@ return (
                     <button className='grow-0 h-[30px] uppercase text-center text-base font-medium text-white bg-red-600 rounded-[8px] self-center' onClick={resetFilttre}> reset </button>
              
         </form>
-        <div className='fle flex-col w-full mt-5a'>
-        <h1 className='text-[#394E6A] text-2xl tracking-wide mb-2'>Featured Products</h1>
-        <div className='pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 place-content-center border-t-2'>
-        {data &&  data.map ((ele, index) => <Product  data={ele} key={index} /> )}
+        <div className='fle flex-col w-full mt-5 '>
+        <div className='text-[#394E6A] text-2xl tracking-wide p-3  border-b flex items-center justify-between px-2'>
+                <h1 className=''>Featured Products</h1>
+                <div className='flex gap-4'>
+                <IoGridOutline className={gridState ? 'text-[#576A83] cursor-pointer hover:text-[#394E6A]' :'cursor-pointer bg-blue-500 text-slate-300 p-1 rounded-lg' } onClick={() => setgridState(!gridState)} />
+                <IoMenu  className={!gridState ? 'text-[#576A83] cursor-pointer hover:text-[#394E6A]' :'cursor-pointer bg-blue-500 text-slate-300 p-1 rounded-lg' } onClick={() => setgridState(!gridState)} />
+                </div>
+
+
+        </div>
+        <div className={gridState ? 'p-4 md:pt-12 grid gap-y-4  md:gap-4 grid-cols-1  place-content-center   ' :  'w-full  sm:pt-12 grid gap-8 md:grid-cols-2 2xl:grid-cols-3 grid-cols-1  p-4 px-12 xl:px-0   place-content-center'}>
+        {data &&  data.map ((ele, index) => <Product  data={ele} key={index} grid={gridState} /> )}
         </div>
         </div>
     </section>

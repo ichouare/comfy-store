@@ -45,9 +45,9 @@ const ProductInfo = ({data}) => {
         console.log("handleCart:", cart);
 
     return (
-        <section className='w-full min-w-full   h-[100%]    flex flex-row  p-16 gap-8  items-start justify-start    '>
-         <div className='w-[40%] min-w-[40%] h-[400px]  '>
-        <img src={image} alt={name} className=' w-full h-full object-fill ' />
+        <section className='w-full min-w-full   h-[100%]    flex flex-col md:flex-row   p-16 gap-8  items-start justify-start    '>
+         <div className='w-full md:w-[40%] min-w-[40%] h-[400px] rounded-lg  '>
+        <img src={image} alt={name} className=' w-full h-full object-fill  rounded-lg ' />
 
          </div>
          <div className=' flex flex-col justify-center gap-y-8  '>

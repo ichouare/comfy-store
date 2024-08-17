@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     path('cart/', views.cart ),
     path('products/', views.all_products.as_view() ),
-    path('fourProduct/', views.all_products.as_view() ),
+    path('fourProduct/', views.fourProduct.as_view() ),
     path('products/<int:id>', views.single_product ),
 
 ]
