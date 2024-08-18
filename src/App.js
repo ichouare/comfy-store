@@ -49,7 +49,7 @@ function App() {
 
   return (
 
-      <section className='min-w-screen  w-screen min-h-screen flex flex-col items-center bg-slate-100'>
+      <section className='min-w-screen  w-screen min-h-screen flex flex-col items-center '>
           <RouterProvider router={router} />
       </section>
   );

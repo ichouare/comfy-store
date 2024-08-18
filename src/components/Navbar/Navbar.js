@@ -7,6 +7,9 @@ import { CiLight } from "react-icons/ci";
 import './styles.css'
 import Authnav from '../authentication/Authnav'
 import AuthContext from '../../context/AuthProvider';
+import { IoIosMenu } from "react-icons/io";
+import Logo from '../../assets/logo.png';
+
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -32,14 +35,19 @@ const Navbar = () => {
   }
 ]
   return (
-    <main className='w-full  min-w-full h-auto min-h-screen flex flex-col items-center justify-start  pb-4 overflow-y-scroll'>
+    <main className='w-full  min-w-full h-auto min-h-screen flex flex-col items-center justify-start  pb-4 overflow-y-scroll font-Satoshi-Light'>
       <Authnav />
-      <header className='bg-slate-50   w-[100%]   flex items-center justify-evenly py-4'>
+      <header className='bg-slate-50   w-[100%]   flex items-center justify-between p-2 ' >
+        <div className='  flex  items-center text-4xl gap-x-4 px-2 '>
+        <button className='w-6 h-6 cursor-pointer grid place-content-center lg:hidden'><IoIosMenu   className='text-2xl'/></button>
+        <div className='w-32 aspect-auto  '>
 
-        <div className='logo min-h-12 h-12  min-w-12 w-1 rounded-md bg-blue-400 grid place-content-center text-4xl text-white'>
-            C
+          <img src={Logo} className='w-32 ' alt='w-full h-full object-fill' />
+
         </div>
-        <nav className='flex items-center gap-x-8'>
+
+        </div>
+        {/* <nav className='flex items-center gap-x-8'>
         {
           navigation.map(({path, name}, index) => (
             
@@ -52,8 +60,8 @@ const Navbar = () => {
             
           ))
         }
-        </nav>
-        <div className='flex items-center gap-x-4'> 
+        </nav> */}
+        <div className='flex items-center gap-x-2'> 
           <IoCartOutline className='text-xl cursor-pointer'/>
           {darkMode ? <MdDarkMode  className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}  /> : <CiLight className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}/>}
         </div>

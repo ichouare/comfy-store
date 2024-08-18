@@ -37,7 +37,7 @@ class all_products(generics.ListAPIView):
 
 class fourProduct(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Product.objects.all()[0:3]
+    queryset = Product.objects.all()[0:4]
     serializer_class = productsSerialzer
 
 
