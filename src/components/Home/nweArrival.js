@@ -16,7 +16,7 @@ import {
 
 
 
-const NewArrival = () => {
+const NewArrival = ({title}) => {
     const [fourProduct, setFourProduct] = useState([])
     useEffect( () => {
         // fetchData()
@@ -36,23 +36,24 @@ const NewArrival = () => {
 
   return (
     <div className='w-[100%]  max-sm:w-full  h-auto flex flex-col items-center justify-evenly  py-8  '>
-    <h1 className='w-full text-center  text-3xl tracking-wide mb-2 uppercase font-bold  font-Satoshi-Bold  '>new arrivals</h1>
-    <Carousel className='w-full h-full  flex items-center justify-center '>
+    <h1 className='w-full text-center  text-3xl tracking-wide mb-2 uppercase font-bold  font-Satoshi-Bold  '>{title}</h1>
+    <Carousel className='w-[80%]  md:[60%]  h-full  flex items-center justify-center '>
     <CarouselContent> 
      {fourProduct &&  fourProduct?.map ((ele, index) => 
      {
        return(
 
-            <CarouselItem key={index} className="w-full   p-6 grid place-content-center"> 
+            <CarouselItem key={index} className="basis-[60%] m-4  md:basis-1/3  lg:basis-1/3       grid place-content-center"> 
             <Product  data={ele}  />
             </CarouselItem>
         )
      }
       )}
     </CarouselContent>
-    <CarouselPrevious />
-  <CarouselNext />
+    <CarouselPrevious  className="hidden md:flex " />
+  <CarouselNext className="hidden md:flex" />
     </Carousel>
+    <button className="w-[200px]  capitalize font-Satoshi-Medium  font-mediu border  rounded-3xl py-2 " > view all</button>
   </div> 
   )
 }

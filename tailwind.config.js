@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       screens: {
-        'sm': '390px',
+        'sm': '391px',
       },
       fontFamily :{
         'Satoshi-Light' : ['Satoshi Light', 'Sans-Serif'],
@@ -27,7 +27,7 @@ module.exports = {
         'Satoshi-Italic ' : ['Satoshi Italic', 'Sans-Serif'],
         'Satoshi-Medium  ' : ['Satoshi Medium  ', 'Sans-Serif'],
         'Satoshi-MediumItalic  ' : ['Satoshi MediumItalic  ', 'Sans-Serif'],
-        'Satoshi-Variable  ' : ['Satoshi Variable  ', 'Sans-Serif'],
+        'Satoshi-Variable' : ['Satoshi Variable  ', 'Sans-Serif'],
         'Satoshi-Bold' : ['Satoshi Bold', 'Sans-Serif'],
       },
       colors: {

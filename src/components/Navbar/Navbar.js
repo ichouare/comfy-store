@@ -66,7 +66,7 @@ const Navbar = () => {
           {darkMode ? <MdDarkMode  className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}  /> : <CiLight className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}/>}
         </div>
         </header>
-        <section className='w-full xl:w-[70%]     h-full   flex items-center justify-center   '>
+        <section className='w-full     h-full   flex items-center justify-center   '>
           <Outlet/>
 
         </section>

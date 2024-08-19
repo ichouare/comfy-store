@@ -10,8 +10,8 @@ const product = ({data, grid}) => {
   console.log("Product")
 
   return (
-    <Link to={`/product/${id}`} className=' min-w-[200px]  w-[200px] min-h-[350px]  h-auto max-h-[350px]   bg-white  flex flex-col items-center justify-center  cursor-pointer gap-2   '>
-      <div className='w-full bg-product-bg grid place-content-center  min-h-[200px] rounded-[14px] '>
+    <Link to={`/product/${id}`} className=' min-w-[200px]  w-[200px] min-h-[350px]  max-h-[350px]   bg-white  flex flex-col items-center justify-center  cursor-pointer gap-2   '>
+      <div className='w-full bg-product-bg grid place-content-center  min-h-[200px] h-[250px] rounded-[14px] '>
         <img src={image} alt='' className='object-fit'/>
       </div>
       <div className='w-full text-black'>
