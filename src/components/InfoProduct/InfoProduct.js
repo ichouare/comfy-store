@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext} from 'react'
 import { useParams } from'react-router-dom'
 import authIntance from '../../axois/axios'
 import AuthContext from '../../context/AuthProvider'
+import ProductDetails from './ProductDetails'
 
 
 const ProductInfo = ({data}) => {
@@ -102,7 +103,7 @@ const InfoProduct = () => {
     }
     else if (!loading && product)
         {
-                return <ProductInfo data={product} />
+                return <ProductDetails data={product} />
         }
     else if(!loading && error){
         return <h1>error</h1>

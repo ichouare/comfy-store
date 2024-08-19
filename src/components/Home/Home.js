@@ -33,7 +33,7 @@ const Home = () => {
     
     <>
     
-    <section className='w-[100%]   min-w-full  min-h-full h-full    overflow-hidden   flex flex-col items-center   '>
+    <section className='w-[100%]   min-w-full  min-h-full h-full    overflow-hidden   flex flex-col items-center  gap-4  '>
       <div className='w-[100%] min-h-[800px]  h-full  flex flex-col md:flex-row item-center justify-start  bg-main '>
       <section className='w-[100%] min-h-[100%]  md:p-8 '>
       <article className="w-full md:w-[80%] flex flex-col items-start justify-start py-8 gap-2 md:gap-y-8  px-3    ">

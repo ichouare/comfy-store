@@ -50,7 +50,7 @@ def single_product(request, id):
     if request.method == 'GET':
         try:
             product = Product.objects.get(id=id)
-            serializer = productsSerialzer(product)
+            serializer = productsSerialzer(product, context={ 'request': request})
 
             return Response(serializer.data, status=200)
         except Product.DoesNotExist:

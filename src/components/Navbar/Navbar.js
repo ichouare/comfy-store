@@ -70,6 +70,9 @@ const Navbar = () => {
           <Outlet/>
 
         </section>
+        <footer className='w-full  min-h-[100px] bg-zinc-100 mt-2 border-t p-4'>
+          <p className='font-Satoshi-Regular  font-light text-base '>Shop.co © 2024-2025, All Rights Reserved</p>
+        </footer>
     </main>
   )
 }
