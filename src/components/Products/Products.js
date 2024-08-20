@@ -7,7 +7,7 @@ import apiInstance from '../../axois/axios'
 import { IoGridOutline, IoMenu } from "react-icons/io5";
 
 const Lists = ({elemments, setState,  state }) => {
-       
+//        console.log(elemments)
         return (
                 <select className='rounded-[8px] p-[2px] cursor-pointer'
                 value={state}
@@ -15,7 +15,7 @@ const Lists = ({elemments, setState,  state }) => {
                 
                 >
                 {
-                    elemments.map((ele, index) => {
+                   elemments &&  elemments?.map((ele, index) => {
                         return <option className='bg-white rounded-[8px]' key={index}>
                                 {ele}
                         </option>
@@ -33,12 +33,12 @@ const Products = () => {
         const [gridState , setgridState] = useState(true)
         const value = useRef(0)
         const Company = ["all" ,"Mondeza", "Luxera", "comfora" ]
-        const Category = ["all", "tables", "chairs", "kids", "sofas", "beds"]
         const sortage = ["a-z", "high", "low" ]
         const [product, setproduct] = useState('')
-        const [category, setcategory] = useState('all')
+        const [categories, setcategories] = useState(['all'])
         const [sort, setSort] = useState('a-z')
         const [free, setFree] = useState(false)
+        const [category, setcategory] = useState('all')
         const [comp, setComp] = useState('all')
         const [data, setData] = useState([])
 
@@ -69,23 +69,41 @@ const resetFilttre = () => {
         setRange(0)   
 }
 
-
 useEffect(() => {
-        const getData = async () => {
-              const response = await  apiInstance.get('/products/products',
-              {
+        const getCategories = async () => {
+                const response = await  apiInstance.get('/products/get_all_categories')
+                const categories = ['all', ...response?.data?.map(item => item?.name)]
+                setcategories(categories)
+       }
+        getCategories() 
+}, [])
+
+
+async function  getData ()  {
+        console.log('data')
+        const response = await  apiInstance.get('/products/products',
+        {
                 params: {
                         category: category,
+                        free: free,
+                        price : range,
+                        sort: sort,
+                        product : product
+                        
                 }
-              },
-               {
+        },
+        {
                 withCredentials: true,
-              })
-              const {data} = response 
-              setData(data)
-        } 
+        })
+        const {data} = response
+        console.log(data) 
+        setData(data)
+} 
+
+function handleSearch(e){
+        e.preventDefault(); 
         getData()
-}, [category])
+}
 
 return (
 <section className='w-[100%]  max-sm:w-full  min-h-full h-full   flex flex-col items-center   '>
@@ -100,8 +118,8 @@ return (
             </div> 
             <div className='flex flex-col   gap-2 place-content-center'>
                     <label forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium'> selected category </label>                  
-                    <Lists  elemments={Category}  setState={setcategory} state={category}/>
-            </div> 
+                    {category && <Lists  elemments={categories}  setState={setcategory} state={category}/>}
+            </div>  
             <div className='flex flex-col   gap-2 place-content-center  '>
                     <label forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium'> selected company </label>
                     <Lists  elemments={Company} setState={setComp} state={comp}  />
@@ -138,7 +156,7 @@ return (
                     /> 
             </div> 
 
-                    <button className='grow-0 h-[30px] px-5 uppercase text-center text-base font-medium text-white bg-blue-600 rounded-[8px] self-center' type='submit' > serach </button>
+                    <button className='grow-0 h-[30px] px-5 uppercase text-center text-base font-medium text-white bg-blue-600 rounded-[8px] self-center' type='submit' onClick={(e) => handleSearch(e)} > serach </button>
                     <button className='grow-0 h-[30px] uppercase text-center text-base font-medium text-white bg-red-600 rounded-[8px] self-center' onClick={resetFilttre}> reset </button>
              
         </form>

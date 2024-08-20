@@ -36,14 +36,14 @@ const NewArrival = ({title}) => {
 
   return (
     <div className='w-[100%]  max-sm:w-full  h-auto flex flex-col items-center justify-evenly  py-8  '>
-    <h1 className='w-full text-center  text-3xl tracking-wide mb-2 uppercase font-bold  font-Satoshi-Bold  '>{title}</h1>
-    <Carousel className='w-[80%]  md:[60%]  h-full  flex items-center justify-center '>
+    <h1 className='w-full text-center  text-3xl tracking-wide mb-2 uppercase font-bold  font-Satoshi-Bold   '>{title}</h1>
+    <Carousel className='w-[100%]  md:[60%]  h-full  flex items-center justify-center '>
     <CarouselContent> 
      {fourProduct &&  fourProduct?.map ((ele, index) => 
      {
        return(
 
-            <CarouselItem key={index} className="basis-[60%] m-4  md:basis-1/3  lg:basis-1/3       grid place-content-center"> 
+            <CarouselItem key={index} className="basis-[50%] m-4  md:basis-1/3  lg:basis-[20%]       grid place-content-center"> 
             <Product  data={ele}  />
             </CarouselItem>
         )

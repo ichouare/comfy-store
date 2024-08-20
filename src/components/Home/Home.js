@@ -17,9 +17,9 @@ import AuthContext from '../../context/AuthProvider'
 
 
 import { Link } from 'react-router-dom'
-import NewArrival from './nweArrival'
+import NewArrival from '../Sharedcomponent/nweArrival'
 import DressStyle from './DressStyle'
-import MoreUpdate from './MoreUpdate'
+import MoreUpdate from '../Sharedcomponent/MoreUpdate'
 
 const Home = () => {
   const {auth, setAuth} = useContext(AuthContext)

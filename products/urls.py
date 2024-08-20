@@ -10,5 +10,5 @@ urlpatterns = [
     path('products/', views.all_products.as_view() ),
     path('fourProduct/', views.fourProduct.as_view() ),
     path('products/<int:id>', views.single_product ),
-
+    path('get_all_categories', views.get_categorys ),
 ]

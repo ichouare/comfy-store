@@ -1,4 +1,7 @@
 
 body{
-    font-family: 'Satoshi Light', 'Sans-Serif'hj;
+    font-family: 'Satoshi Light', 'Sans-Serif';
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }

@@ -12,7 +12,7 @@ const DressStyle = () => {
       BROWSE BY DRESS STYLE
     </h1>
   
-    <div className='w-full   lg:w-[70%] h-full grid grid-flow-row grid-rows-4 bg-r gap-4  sm:grid-rows-2 md:grid-cols-3'>
+    <div className='w-full   lg:w-[90%] h-full grid grid-flow-row grid-rows-4 bg-r gap-4  sm:grid-rows-2 md:grid-cols-3'>
       <div  className='rounded-3xl h-[250px] max-h-[250px]  bg-white relative px-1 capitalize '>
         <h1 className='absolute top-4 left-4 font-normal font-Satoshi-Light text-2xl'>Casual</h1>
         <img src={dress} alt="Casual Dress" className="w-full h-full rounded-3xl object-fill" />
