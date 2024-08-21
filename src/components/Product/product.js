@@ -1,16 +1,21 @@
 import React from 'react'
 import img from '../../assets/pexels-photo-943150.webp'
-import { Link } from 'react-router-dom'
-const product = ({data}) => {
-  let {id, name, price, image} = data
 
+
+
+
+import { Link } from 'react-router-dom'
+const product = ({data, grid}) => {
+  let {id, name, price, image} = data
   return (
-    <Link to={`product/${id}`} className=' w-[350px] h-[300px] px-3  bg-white rounded-[10px] flex flex-col items-center justify-between cursor-pointer shadow  '>
-      <img src={image} alt='' className='w-full h-[65%] rounded-[10px] justify-self-start'/>
-      <div className='w-full grow grid place-content-center'>
-      <h3 className='text-center text-3xl capitalize font-medium text-[#394E6A] tracking-wide'>{name}</h3>
-      <p className='text-center text-[#4C3FA5]'>$ {price}</p>
+    <Link to={`/product/${id}`} className=' min-w-[172px] bg-white w-[172px]  md:w-[200px] md:md-w-[200px]  h-[320px]   max-h-[320px]      flex flex-col items-center justify-start  cursor-pointer gap-2  '>
+      <div className='w-full bg-product-bg  dark:bg-white grid place-content-center  min-h-[250px] h-[250px] rounded-[14px]  '>
+        <img src={image} alt='' className='w-full h-full object-cover'/>
       </div>
+      <div className='w-full text-black'>
+      <h3 className='text-start text-sm  font-normal  font-Satoshi-Regular  capitalize  p-0'>{name}</h3>
+      <p className='text-start '>$ {price}</p>
+     </div>
     </Link>
   )
 }

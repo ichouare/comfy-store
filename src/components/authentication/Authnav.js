@@ -23,13 +23,14 @@ const Authnav = () => {
 
     }
     return (
-        <div className="w-full flex items-center justify-center bg-black">
+        <div className="w-full  bg-black font-Satoshi-Light font-normal">
 
-        <div className=" h-[40px] w-[80%] max-w-[65rem] min-w-[] flex flex-row items-center justify-end  text-white text-sm  gap-x-4   ">
-            <button>
-                <Link  to="/login"  >sign in / Guest</Link>
-            </button> 
-                {
+        <div className="sm:h-[38px] w-[100%] p-2 md:p-0   flex flex-col sm:flex-row items-center justify-center  text-[#FFF] text-xs  md:text-base md:gap-x-2  smtracking-wide  ">
+            <p className="w-fit capitalize p-0 ">
+            Sign up and get 20% off to your first order.  
+            </p>
+            <Link  to="/login"  className="inline-block w-fit cursor-pointer capitalize underline sm:p-2     " >Sign Up Now</Link>
+                {/* {
                     auth ? 
                     <button className="btn capitalize px-3 py-1 bg-blue-600 text-base text-white rounded-md"
                     onClick={() => logouthandler()}
@@ -38,7 +39,7 @@ const Authnav = () => {
                     <button className="btn capitalize px-3 py-1 bg-blue-600 text-base text-white rounded-md">
                         <Link  to="/login"   >create Account</Link>
                     </button>
-                } 
+                }  */}
         </div>
     
         </div>
