@@ -27,18 +27,36 @@ class all_products(generics.ListAPIView):
         return Response(serializer.data)
 
 
-    def get_queryset(self): # overide get_serializer_class method inherited from GenericAPIView
-        category = self.request.query_params.get('category')
-        price = self.request.query_params.get('price')
-        order = self.request.query_params.get('order')
-        product = self.request.query_params.get('product')
-        free = self.request.query_params.get('free')  == 'true'
-        name = self.request.query_params.get('product')
-        if(free):
-            print("-------------->")
-            products = Product.objects.filter(name__icontains= name, category__name = category, free = free)
-        else:
-             products = Product.objects.filter(category__name = category, price__gt= price)
+    def get_queryset(self):
+        print(self.request.query_params)
+        filters = {}  # Use 'filters' instead of 'filter'
+
+        
+        if self.request.query_params.get('price'):
+            filters['price'] = self.request.query_params.get('price')
+        if self.request.query_params.get('free') == 'true':
+            filters['free'] = True
+        if self.request.query_params.get('name'):
+            filters['name'] = self.request.query_params.get('name')
+
+        order = self.request.query_params.get('sort')
+        if self.request.query_params.get('category') != 'all':
+            category = self.request.query_params.get('category')
+            products = Product.objects.filter(**filters).filter(category__name = category)
+        else: 
+            products = Product.objects.filter(**filters) 
+
+        # You can also apply ordering if needed
+        if order != '':
+            if order == 'a-z':
+                products = products.order_by('name')
+            elif order == "high":
+                  products = products.order_by('price')
+            else: 
+                product =  products.order_by('-price')
+
+
+
 
         return products
 
