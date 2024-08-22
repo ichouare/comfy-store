@@ -40,10 +40,7 @@ const ProductInfo = ({data}) => {
             cartItems:   handlecartItems(id,  (cart.numItemsInCart) )
             
         })}
-    // useEffect(()=> {
 
-    // }, [number])
-        console.log("handleCart:", cart);
 
     return (
         <section className='w-full min-w-full   h-[100%]    flex flex-col md:flex-row   p-16 gap-8  items-start justify-start    '>
