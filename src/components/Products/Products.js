@@ -5,7 +5,6 @@ import authIntance from '../../axois/axios'
 import apiInstance from '../../axois/axios'
 import filterIcon from '../../assets/filter.svg'
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { FiPlus } from "react-icons/fi";
 
 const Lists = ({elemments, setState,  state }) => {
@@ -79,6 +78,7 @@ const get_all_products = async () => {
 }
 
 useEffect(() => {
+
         getCategories()
         get_all_products() 
 }, [])
@@ -110,25 +110,41 @@ function handleSearch(e){
 }
 
 const  sizes = useRef(["small", "medium", "large", "X-Large"])
-const tl = gsap.timeline()
-useGSAP(
-        () => {
-            // gsap code here...
-            tl.to(form.current, { 
-                duration: 0.5,
-                "opacity": show ? "1" : "0",
-                ease:  show ? "power1" : "none",
-                bottom  : show ? "100%" : "0%",
-                top : show ? "12%" : "100%",
-                width:   "100%",
-                height : show ? "90vh" :  "20px",
-                ease: "elastic.out(1, 0.3)",
-                transformOrigin: "center bottom",
-                // ... other gsap properties
-            }); // <-- automatically reverted
-        },
-       [show] 
-    );
+
+
+useEffect(() => {
+        const handleResize = () => {
+          const tl = gsap.timeline();
+    
+          if (window.innerWidth <= 768) {
+            tl.to(form.current, {
+              duration: 0.5,
+              opacity: show ? 1 : 0,
+              ease: show ? 'power1' : 'none',
+              bottom: show ? '100%' : '0%',
+              top: show ? '12%' : '100%',
+              width: '100%',
+              height: show ? '90vh' : '20px',
+              ease: 'elastic.out(1, 0.3)',
+              transformOrigin: 'center bottom',
+              // ... other gsap properties
+            });
+          } else {
+            // Optionally, revert the animation if the screen size changes to larger than 768px
+            tl.to(form.current, {
+              clearProps: 'all', // This will clear all inline styles applied by GSAP
+            });
+          }
+        };
+    
+        // Initial trigger and resize event listener
+        handleResize();
+        window.addEventListener('resize', handleResize);
+    
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, [show]);
 
 // console.log(size)
 
@@ -139,10 +155,10 @@ return (
                 <img src={filterIcon} alt='filter_icon' className='w-full h-full object-fill' />
         </div>
         <form
-        className="bg-white font-Satoshi-Regular font-light text-black/60 rounded-t-3xl border-2 fixed bottom-0 overflow-hidden w-full lg:h-[300px] pb-8 grid place-items-center sm:grid-cols-2 lg:grid-cols-4 gap-2"
+        className="bg-white  font-Satoshi-Regular font-light text-black/60 rounded-t-3xl border-2 fixed  md:relative  md:opacity-1 bottom-0 overflow-hidden w-full lg:h-[300px] pb-8 grid place-items-center md:grid-flow-row md:grid-cols-4  md:grid-rows-2  gap-2"
         onSumbit={(e) => handlefilter(e)}
         ref={form}
-    >        <div className='flex items-center justify-center  max-w-[80%] w-[80%]  max-h-[100px]   p-3 border-b self-end   cursor-pointer md:hidden'  >
+    >        <div className='flex  items-center justify-center  max-w-[80%] w-[80%]  max-h-[100px]   p-3 border-b self-end   cursor-pointer md:hidden'  >
         <FiPlus  className='text-3xl rotate-45 cursor-pointer text-zinc-500' onClick={() => setShow(false)} /> 
         </div>
             <div className='flex flex-col gap-2  max-w-[80%] w-[80%]  max-h-[100px]   place-content-center  '>
@@ -156,7 +172,7 @@ return (
                     <label forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium '> selected category </label>                  
                     {category && <Lists  elemments={categories}  setState={setcategory} state={category}/>}
             </div>  
-            <div className='flex flex-col max-w-[80%] w-[80%]  max-h-[100px]   gap-2 place-content-center  '>
+            <div className='flex flex-col max-w-[80%] w-[80%]  max-h-[100px]   gap-2 place-content-center md:col-span-2 '>
                     <h4 forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium'> size </h4>
                     <div className="w-full grid grid-flow-col sm:max-lg:grid-cols-2 sm:max-lg:grid-rows-2 gap-2">
                         {sizes.current.map((sz, index) => (
@@ -179,7 +195,7 @@ return (
                     <label forhtml="serachProduct" className='text-sm text-[#576A83] capitalize tracking-wide font-medium'> sort by </label>
                     <Lists  elemments={sortage} setState={setSort} state={sort}  />
             </div> 
-            <div className='flex flex-col  max-w-[80%] w-[80%]  max-h-[100px] gap-2 place-content-center   '>
+            <div className='flex flex-col  max-w-[80%] w-[80%]  max-h-[100px] gap-2 place-content-center    '>
                     <label forhtml="serachProduct" className=' text-sm text-[#576A83] capitalize tracking-wide font-medium flex flex-row items-center justify-between'> <span>
                                 select price 
                         </span> 
@@ -209,9 +225,9 @@ return (
 
                     <button  type="submit" className='grow-0 h-[40px] max-w-[80%] w-[80%]  px-5  text-center text-base  text-white/85 bg-black font-Satoshi-Regular  font-normal  tracking-wide leading-4 capitalize  rounded-[40px] self-center' type='submit' onClick={(e) => handleSearch(e)} > search </button>
         </form>
-        <div className='flex flex-row w-full mt-5    '>
-        <div className='w-full min-h-full h-screen  md:pt-12 grid gap-y-4  :gap-4  grid-cols-2  md:grid-cols-3  lg:grid-cols-4 place-items-center ' >
-        {data &&  data.map ((ele, index) => <Product  data={ele} key={index} grid={gridState} /> )} 
+        <div className='flex h-full  min-h-screen flex-row w-full mt-5    '>
+        <div className='w-full  h-full  md:pt-12 grid gap-y-4  gap-4  grid-cols-2  md:grid-cols-3  lg:grid-cols-4 place-items-start p-0 sm:p-[10px] ' >
+        {data.length ?  data.map ((ele, index) => <Product  data={ele} key={index}  /> ) : <div className='w-[100%] col-span-2 h-full flex justify-center ' > ops!! no product </div>} 
         </div>
         </div>
     </section>

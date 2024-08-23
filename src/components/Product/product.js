@@ -5,7 +5,7 @@ import img from '../../assets/pexels-photo-943150.webp'
 
 
 import { Link } from 'react-router-dom'
-const product = ({data, grid}) => {
+const product = ({data}) => {
   let {id, name, price, image} = data
   return (
     <Link to={`/product/${id}`} className=' min-w-[172px] bg-white w-[172px]  md:w-[200px] md:md-w-[200px]  h-[320px]   max-h-[320px]      flex flex-col items-center justify-start  cursor-pointer gap-2  '>

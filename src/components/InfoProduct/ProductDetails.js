@@ -1,11 +1,12 @@
-import React , {useState, useRef} from 'react'
+import React , {useState, useRef, useContext} from 'react'
 import testImg  from '../../assets/Tshirt2.png'
 import testImg2  from '../../assets/Tshirt3.png'
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react"
 import { FiMinus, FiPlus} from "react-icons/fi";
 import NewArrival from '../Sharedcomponent/nweArrival';
-import MoreUpdate from '../Sharedcomponent/MoreUpdate';
+import AuthContext from '../../context/AuthProvider';
+
 
 
 
@@ -28,7 +29,7 @@ const Size = ({size, setSize}) => {
 
 
 
-const Counter = ({Count, setCount}) => {
+const Counter = ({Count, setCount, handleCart}) => {
     return (
         <div className='w-full h-full pt-1   min-h-16 grid  grid-cols-[minmax(104px,_170px)_minmax(200px,_1fr)]  gap-4 border-b items-center sm:max-lg:items-end sm:border-0  '>
             <div className='flex items-center justify-between p-3 bg-zinc-100 rounded-2xl min-h-10 h-10 text-xl'>
@@ -36,13 +37,13 @@ const Counter = ({Count, setCount}) => {
                 <p className=''>{Count}</p>
                 <span className='text-lg cursor-pointer'  onClick={() => setCount(Count++)}> <FiPlus /></span>
             </div>
-            <button className='w-full  min-h-10 h-10 bg-black text-white text-base rounded-2xl font-Satoshi-Regular  font-medium  '>Add to Cart</button>
+            <button className='w-full  min-h-10 h-10 bg-black text-white text-base rounded-2xl font-Satoshi-Regular  font-medium '  onClick={() => handleCart()} >Add to Cart</button>
         </div>
     )
 }
 
 const ProductDetails = ({data}) => {
-    const {name, price, free, image, description} = data
+    const {id ,name, price, free, image, description} = data
 
     const imgs = Array(3).fill(image)
     const [currentImg, setCurrentImg] = useState(0)
@@ -52,7 +53,9 @@ const ProductDetails = ({data}) => {
     imgs[1] = testImg //test
     imgs[2] = testImg2 // test
 
-            const container = useRef();
+    const {cart, setCart} = useContext(AuthContext)
+
+        const container = useRef();
         useGSAP(() => {
             gsap.from(img_ref.current, {
                 'opacity': 0,
@@ -64,6 +67,42 @@ const ProductDetails = ({data}) => {
                 duration: 0.5,
             })
         }, { dependencies : [currentImg],  scope: container });
+
+    // setup some logic for the cart and add items for   it 
+    const handlecartItems = (id_product, quantity) => {
+        let {cartItems} = cart
+        if(cartItems.filter( item => item.id == id_product).length)
+        {
+            console.log(cartItems.filter( item => item.id == id_product))
+            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity  } : item )
+        }
+        else{
+            console.log("---->",  quantity)
+            cartItems.push({
+                id : id_product,
+                name : name,
+                image : image,
+                price : price,
+                quantity : quantity,
+            })
+        }
+        return cartItems
+    }
+
+    const handleCart = () => {
+        console.log(cart)
+        let total =  Count + cart.numItemsInCart
+        setCart({...cart, 
+            numItemsInCart : total , 
+            cartTotal : (Count * price ) + cart.cartTotal,
+            cartItems:   handlecartItems(id,  (Count) )
+            
+        })}
+
+
+    console.log(cart)
+    console.log(cart.cartItems.length)
+
     return (
     <section className='w-full min-h-full h-full  flex flex-col items-center justify-center p-4 gap-4     '>
            <div className='w-full relative  sm:flex gap-6    sm:h-auto items-center justify-center  '>
@@ -93,11 +132,10 @@ const ProductDetails = ({data}) => {
                     <p className='font-Satoshi-Regular  font-light max-w-[500px]'>{description}</p>
                     </article>
                 <Size size={size} setSize={setSize} />
-                <Counter  Count={Count} setCount={setCount} />
+                <Counter  Count={Count} setCount={setCount} handleCart={handleCart}  />
                 </div>
                 </div>
                 <NewArrival title={'You might also likenged'}/>
-                <MoreUpdate />
     </section>
   )
 }

@@ -44,7 +44,7 @@ class all_products(generics.ListAPIView):
             category = self.request.query_params.get('category')
             products = Product.objects.filter(**filters).filter(category__name = category)
         else: 
-            products = Product.objects.filter(**filters) 
+            products = Product.objects.all()
 
         # You can also apply ordering if needed
         if order != '':

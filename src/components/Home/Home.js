@@ -79,7 +79,7 @@ const Home = () => {
      <NewArrival  title='new arrivals'/>
      <NewArrival title='top selling' />
      <DressStyle />
-     <MoreUpdate />
+
      
     </section>
     </>

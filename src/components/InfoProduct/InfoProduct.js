@@ -16,6 +16,7 @@ const ProductInfo = ({data}) => {
         }
     
     const handlecartItems = (id_product, quantity) => {
+        console.log("---->",  quantity)
         let {cartItems} = cart
         if (cartItems.length === 0) {
             cartItems.push({
@@ -28,7 +29,7 @@ const ProductInfo = ({data}) => {
         }
         else if(cartItems.filter( item => item.id === id_product) )
         {
-            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity } : item )
+            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : item.quantity + item.quantity } : item )
         }
         return cartItems
     }
@@ -40,10 +41,7 @@ const ProductInfo = ({data}) => {
             cartItems:   handlecartItems(id,  (cart.numItemsInCart) )
             
         })}
-    // useEffect(()=> {
 
-    // }, [number])
-        console.log("handleCart:", cart);
 
     return (
         <section className='w-full min-w-full   h-[100%]    flex flex-col md:flex-row   p-16 gap-8  items-start justify-start    '>

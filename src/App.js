@@ -6,7 +6,6 @@ import { Route , Routes, createRoutesFromElements } from 'react-router';
 
 import Navbar from './components/Navbar/Navbar'
 import Home from './components/Home/Home'
-import About from './components/about/about';
 import Products from './components/Products/Products';
 import Login  from './components/login/login';
 import Cart from './components/Cart/Cart';
@@ -28,8 +27,6 @@ function App() {
     <Route  path='/login' element={<Login />} />
    <Route path="/" element={<Navbar />} >
     <Route index  element={<Home />} />
-    <Route path='about' element={<About />} />
-
     <Route path='product' element={<Products />} />
     <Route path='cart' element={<Cart />} />
     <Route
