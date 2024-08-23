@@ -1,6 +1,6 @@
 import React , {useState, useContext, useRef, useEffect} from 'react'
 import { Outlet } from 'react-router'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { IoCartOutline } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
@@ -13,6 +13,7 @@ import Logo from '../../assets/logo.png';
 import gsap from 'gsap';
 
 import MoreUpdate from '../Sharedcomponent/MoreUpdate';
+import Backout from '../Sharedcomponent/Backout';
 
 const Navbar = () => {
   const Menu = useRef(null)
@@ -46,7 +47,7 @@ useEffect(() => {
         opacity: ShowMenu ? 1 : 0,
         ease: ShowMenu ? 'power1' : 'none',
         width: '100%',
-        transition: ShowMenu ?  "translateX('100%')" :   "translateX('-100%')",
+        transform: ShowMenu ?  "translateX(0%)" :   "translateX(-100%)",
         // ... other gsap properties
       });
     } else {
@@ -94,13 +95,14 @@ useEffect(() => {
 
         </div>
         <div className='flex items-center gap-x-2'> 
-        <span className='h-6  relative text-2xl'>
+        <Link to='/cart' className='h-6  relative text-2xl'>
          <p className='absolute text-sm  -top-2 left-1.5 -rotate-45 text-zinc-500 '>{cart?.numItemsInCart}</p> 
           <IoCartOutline className='text-xl cursor-pointer block realative '/>
-          </span>
+          </Link >
           {darkMode ? <MdDarkMode  className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}  /> : <CiLight className='text-xl cursor-pointer' onClick={() => setDarkMode(prev => !prev)}/>}
         </div>
         </header>
+        <Backout/>
         <section className='w-full     h-full   flex items-center justify-center   '>
           <Outlet/>
         </section>

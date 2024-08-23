@@ -71,32 +71,37 @@ const ProductDetails = ({data}) => {
     // setup some logic for the cart and add items for   it 
     const handlecartItems = (id_product, quantity) => {
         let {cartItems} = cart
-        if (cartItems.length === 0) {
+        if(cartItems.filter( item => item.id == id_product).length)
+        {
+            console.log(cartItems.filter( item => item.id == id_product))
+            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity  } : item )
+        }
+        else{
+            console.log("---->",  quantity)
             cartItems.push({
                 id : id_product,
                 name : name,
                 image : image,
                 price : price,
-                quantity :quantity,
+                quantity : quantity,
             })
-        }
-        else if(cartItems.filter( item => item.id === id_product) )
-        {
-            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity } : item )
         }
         return cartItems
     }
 
     const handleCart = () => {
+        console.log(cart)
+        let total =  Count + cart.numItemsInCart
         setCart({...cart, 
-            numItemsInCart :  Count + cart.numItemsInCart , 
+            numItemsInCart : total , 
             cartTotal : (Count * price ) + cart.cartTotal,
-            cartItems:   handlecartItems(id,  (cart.numItemsInCart) )
+            cartItems:   handlecartItems(id,  (Count) )
             
         })}
 
 
     console.log(cart)
+    console.log(cart.cartItems.length)
 
     return (
     <section className='w-full min-h-full h-full  flex flex-col items-center justify-center p-4 gap-4     '>

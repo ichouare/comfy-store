@@ -16,6 +16,7 @@ const ProductInfo = ({data}) => {
         }
     
     const handlecartItems = (id_product, quantity) => {
+        console.log("---->",  quantity)
         let {cartItems} = cart
         if (cartItems.length === 0) {
             cartItems.push({
@@ -28,7 +29,7 @@ const ProductInfo = ({data}) => {
         }
         else if(cartItems.filter( item => item.id === id_product) )
         {
-            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity } : item )
+            cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : item.quantity + item.quantity } : item )
         }
         return cartItems
     }
