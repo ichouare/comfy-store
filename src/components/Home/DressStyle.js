@@ -13,22 +13,22 @@ const DressStyle = () => {
     </h1>
   
     <div className='w-full   lg:w-[90%] h-full grid grid-flow-row grid-rows-4 bg-r gap-4  sm:grid-rows-2 md:grid-cols-3'>
-      <div  className='rounded-3xl h-[250px] max-h-[250px]  bg-white relative px-1 capitalize '>
+      <div  className='rounded-3xl h-[250px] max-h-[250px]  bg-white relative  md:px-1capitalize '>
         <h1 className='absolute top-4 left-4 font-normal font-Satoshi-Light text-2xl'>Casual</h1>
         <img src={dress} alt="Casual Dress" className="w-full h-full rounded-3xl object-fill" />
       </div>
   
-      <div  className='rounded-3xl   h-[250px] max-h-[250px] bg-white relative px-1 capitalize md:col-span-2'>
+      <div  className='rounded-3xl   w-full h-[250px] max-h-[250px] bg-white relative md:px-1 capitalize md:col-span-2'>
         <h1 className='absolute top-4 left-4 font-normal font-Satoshi-Light text-2xl'>Formal</h1>
         <img src={formal} alt="Formal Dress" className="w-full h-full rounded-3xl object-fill" />
       </div>
   
-      <div  className='rounded-3xl    h-[250px] max-h-[250px] bg-white relative px-1 capitalize  md:col-span-2'>
+      <div  className='rounded-3xl    h-[250px] max-h-[250px] bg-white relative  md:px-1 capitalize  md:col-span-2'>
         <h1 className='absolute top-4 left-4 font-normal font-Satoshi-Light text-2xl'>Party</h1>
         <img src={party} alt="Party Dress" className="w-full h-full rounded-3xl object-fill" />
       </div>
   
-      <div  className='rounded-3xl   h-[250px] max-h-[250px] bg-white relative px-1 capitalize'>
+      <div  className='rounded-3xl   h-[250px] max-h-[250px] bg-white relative  md:px-1 capitalize'>
         <h1 className='absolute top-4 left-4 font-normal font-Satoshi-Light text-2xl'>Gym</h1>
         <img src={Gym} alt="G Outfit" className="w-full h-full rounded-3xl object-fill" />
       </div>

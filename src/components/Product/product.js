@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const product = ({data}) => {
   let {id, name, price, image} = data
   return (
-    <Link to={`/product/${id}`} className=' min-w-[172px] bg-white w-[172px]  md:w-[200px] md:md-w-[200px]  h-[320px]   max-h-[320px]      flex flex-col items-center justify-start  cursor-pointer gap-2  '>
+    <Link to={`/product/${id}`} className='min-w-[200px]   bg-white w-[200px]  md:w-[200px] md:md-w-[200px]  h-[320px]   max-h-[320px]      flex flex-col items-center justify-start  cursor-pointer gap-2  '>
       <div className='w-full bg-product-bg  dark:bg-white grid place-content-center  min-h-[250px] h-[250px] rounded-[14px]  '>
         <img src={image} alt='' className='w-full h-full object-cover'/>
       </div>
