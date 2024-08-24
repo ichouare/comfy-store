@@ -18,7 +18,7 @@ const ProductInfo = ({data}) => {
     const handlecartItems = (id_product, quantity) => {
         console.log("---->",  quantity)
         let {cartItems} = cart
-        if (cartItems.length === 0) {
+        if (cartItems?.length === 0) {
             cartItems.push({
                 id : id_product,
                 name : name,
@@ -97,7 +97,9 @@ const InfoProduct = () => {
     }, [id])
 
     if(loading){
-        return <h1>loading...</h1>
+        return (<section className='w-[100%] h-screen flex items-center justify-center'>
+            <h1>loading...</h1>
+        </section> )
     }
     else if (!loading && product)
         {

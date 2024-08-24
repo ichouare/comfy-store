@@ -16,7 +16,7 @@ const Size = ({size, setSize}) => {
     return (
         <div className='w-full  pt-1  min-h-28    flex flex-col   gap-4 border-b sm:border-0'>
         <h4 className='font-Satoshi-Light  font-normal text-base text-black/50 tracking-wide'>Choose Size</h4>
-        <div className='w-full  grid grid-flow-col sm:max-lg:grid-cols-2 sm:max-lg:grid-rows-2  gap-2 '>   
+        <div className='w-full  grid grid-flow-col grid-cols-2 grid-rows-2 py-2 phone:py-0  phone:max-sm:max-w-[350px] phone:grid-cols-1 phone:grid-rows-1 lg:grid-cols-1 lg:grid-rows-1 sm:max-lg:grid-cols-2 sm:max-lg:grid-rows-2  gap-2 '>   
             {
                 sizes.current.map((sz, index) => (
                     <button key={index} className={`h-10 text-sm capitalize px-4 py-2.5  rounded-2xl bg-zinc-100 font-Satoshi-Regular  font-light  ${sz === size? 'active': ''}`} onClick={() => setSize(sz)}>{sz}</button>
@@ -31,7 +31,7 @@ const Size = ({size, setSize}) => {
 
 const Counter = ({Count, setCount, handleCart}) => {
     return (
-        <div className='w-full h-full pt-1   min-h-16 grid  grid-cols-[minmax(104px,_170px)_minmax(200px,_1fr)]  gap-4 border-b items-center sm:max-lg:items-end sm:border-0  '>
+        <div className='w-full h-full pt-1   min-h-16 grid  grid-cols-[minmax(104px,_170px)_minmax(104px,_1fr)]  gap-4 border-b items-center sm:max-lg:items-end sm:border-0  '>
             <div className='flex items-center justify-between p-3 bg-zinc-100 rounded-2xl min-h-10 h-10 text-xl'>
                 <span className='text-lg cursor-pointer ' onClick={() => setCount(Count ? Count-- : 0 )}> <FiMinus className='' /> </span>
                 <p className=''>{Count}</p>
@@ -71,7 +71,7 @@ const ProductDetails = ({data}) => {
     // setup some logic for the cart and add items for   it 
     const handlecartItems = (id_product, quantity) => {
         let {cartItems} = cart
-        if(cartItems.filter( item => item.id == id_product).length)
+        if(cartItems.filter( item => item.id == id_product)?.length)
         {
             console.log(cartItems.filter( item => item.id == id_product))
             cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity  } : item )
@@ -90,6 +90,8 @@ const ProductDetails = ({data}) => {
     }
 
     const handleCart = () => {
+        if(!Count)
+                return
         console.log(cart)
         let total =  Count + cart.numItemsInCart
         setCart({...cart, 
@@ -100,12 +102,12 @@ const ProductDetails = ({data}) => {
         })}
 
 
-    console.log(cart)
-    console.log(cart.cartItems.length)
+    // console.log(cart)
+    // console.log(cart.cartItems.length)
 
     return (
-    <section className='w-full min-h-full h-full  flex flex-col items-center justify-center p-4 gap-4     '>
-           <div className='w-full relative  sm:flex gap-6    sm:h-auto items-center justify-center  '>
+    <section className='w-full min-h-screen h-full  flex flex-col items-center justify-center p-4 gap-4     '>
+           <div className='w-full relative  sm:flex gap-6      sm:h-auto items-center justify-center  '>
 
             <div className='product_imgs w-full 
             sm:max-md:w-96 md:w-auto  flex flex-col sm:justify-center items-center justify-start  gap-4   md:flex-row-reverse'>
