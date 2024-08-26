@@ -110,7 +110,7 @@ const Cart = () => {
 const {cart , setCart} = useContext(AuthContext) 
 console.log(cart)
    return (
-      <div className='w-[100%]   max-sm:w-full   min-h-screen h-full  px-6 flex flex-col md:flex-row gap-4  items-start  p-4'>
+      <div className='w-[100%]   max-sm:w-full   min-h-[820px]  h-full  px-6 flex flex-col md:flex-row gap-4  items-start  p-4'>
 
        {/* <h1 className='text-[#394E6A] text-2xl tracking-wide mb-2'>Your Cart Is Empty</h1> */}
        <div className='w-full    h-full   grid gap-y-4  gap-4  grid-cols-1   place-items-start  ' >

@@ -46,7 +46,7 @@ function App() {
 
   return (
 
-      <section className='p-0  lg:container   min-h-screen flex flex-col items-center '>
+      <section className='p-0  lg:container overflow-hidden    flex flex-col items-center '>
           <RouterProvider router={router} />
       </section>
   );

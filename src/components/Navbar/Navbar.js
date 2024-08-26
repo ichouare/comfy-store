@@ -31,9 +31,6 @@ const Navbar = () => {
   {
     path: '/cart',
     name: 'Cart'
-  }, {
-    path: "/checkout",
-    name: 'Checkout'
   }
 ]
 
@@ -68,7 +65,7 @@ useEffect(() => {
 }, [ShowMenu])
 
   return (
-    <main className='w-full  min-w-full h-auto min-h-screen flex flex-col items-center justify-start  pb-4 overflow-y-scroll font-Satoshi-Light '>
+    <main className='w-full  min-w-full h-auto min-h-screen flex flex-col items-center justify-start  pb-4 font-Satoshi-Light '>
       <Authnav />
       <header className='bg-slate-50 md:bg-white  py-3  w-[100%]   flex items-center justify-between p-2  md:px-8 ' >
         <div className=' flex  grow items-center  text-4xl gap-x-4 px-2 py-1  bg-zinc-100  rounded-3xl '>
@@ -82,11 +79,9 @@ useEffect(() => {
         {
           navigation.map(({path, name}, index) => (
             
-              (path === '/checkout' && !auth)  ? 
-                null
-               :  <Link key={index} to={path} className='text-base font-light tracking-wide   w-full  text-black/60 font-Satoshi-Regular  text-center   '>
+               <Link key={index} to={path} className='text-base font-light tracking-wide   w-full  text-black/60 font-Satoshi-Regular  lg:text-center   '>
                {name}
-             </Link>  // do not render cart link if not authenticated  :D ^^
+             </Link>  
             
             
           ))
@@ -108,7 +103,7 @@ useEffect(() => {
         </section>
 
           <MoreUpdate />
-        <footer className='w-full  flex flex-col md:flex-row items-center justify-evenly min-h-[100px] bg-zinc-100 mt-2 border-t p-4'>
+        <footer className='w-full  flex flex-col md:flex-row items-center justify-between px-16  min-h-[100px] bg-zinc-100 mt-2 border-t py-4'>
           <p className='font-Satoshi-Regular  font-light text-base self-start '>Shop.co © 2024-2025, All Rights Reserved</p>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d362112.02892318607!2d-6.77243329240814!3d32.63922705135367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda427fa6cc01abd%3A0x81e42d2370814027!2sKhouribga!5e0!3m2!1sfr!2sma!4v1724596891735!5m2!1sfr!2sma" width="400" height="150" 
           style={{ border :  0 }}

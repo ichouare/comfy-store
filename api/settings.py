@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'products',
     "authentication",
 
+
     'rest_framework_simplejwt',
     "corsheaders",
 
