@@ -37,26 +37,26 @@ const Home = () => {
       <div className='w-[100%] min-h-[800px]  h-full  flex flex-col md:flex-row item-center justify-start  bg-main '>
       <section className='w-[100%] min-h-[100%]  md:p-8 '>
       <article className="w-full md:w-[80%] flex flex-col items-start justify-start py-8 gap-2 md:gap-y-8  px-3    ">
-        <h1 className="text-4xl md:text-6xl mdfont-bold w-[80%] md:w-full   leading-tight   text-black font-extrabold  font-Satoshi-Variable   ">
+        <h1 className="text-4xl md:text-6xl mdfont-bold w-[80%] md:w-full   leading-tight   text-black dark:text-white  font-extrabold  font-Satoshi-Variable   ">
         FIND CLOTHES THAT MATCHES YOUR STYLE
         </h1>
-        <p className="w-full  sm:w-[80%] text-black/50 leading-6 text-sm font-light font-Satoshi-Regular "> 
+        <p className="w-full  sm:w-[80%] text-black/50 dark:text-white leading-6 text-sm font-light font-Satoshi-Regular "> 
         Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.        </p> 
-        <Link to='/product' className='block w-full sm:w-52 sm:py-4  p-2 text-center text-white bg-black rounded-3xl tracking-wide capitalize'>
+        <Link to='/product' className='block w-full sm:w-52 sm:py-4  p-2 text-center text-white bg-black dark:bg-blue-500 rounded-3xl tracking-wide capitalize'>
           shop now
         </Link>
         <div className='w-full     grid grid-flow-row  grid-cols-2 grid-rows-2 md:grid-flow-col md:grid-rows-1 md:gap-8 gap-8 p-4 '>
-          <div className='flex flex-col items-start justify-center tracking-wide'>
+          <div className='flex flex-col items-start justify-center tracking-wide md:border-r'>
               <h4 className=' font-Satoshi-Bold text-lg tracking-wider font-semibold'>200+</h4>
-              <p className='font-Satoshi-Regular  text-sm text-black/50 font-light'>International Brands</p>
+              <p className='font-Satoshi-Regular  text-sm text-black/50 dark:text-white  font-light'>International Brands</p>
           </div>
-          <div className='flex flex-col items-start justify-center tracking-wide'>
+          <div className='flex flex-col items-start justify-center tracking-wide md:border-r'>
               <h4 className=' font-Satoshi-Bold text-lg tracking-wider font-semibold'>2,000+</h4>
-              <p className='font-Satoshi-Regular  text-sm text-black/50 font-light'>High-Quality Products</p>
+              <p className='font-Satoshi-Regular  text-sm text-black/50 dark:text-white  font-light'>High-Quality Products</p>
           </div>
           <div className='flex flex-col items-center justify-center tracking-wide  col-span-2  '>
               <h4 className='w-[35%] font-Satoshi-Bold text-lg tracking-wider font-semibold'>30,000+</h4>
-              <p className='font-Satoshi-Regular  text-sm text-black/50 font-light'>Happy Customers</p>
+              <p className='font-Satoshi-Regular  text-sm text-black/50 dark:text-white  font-light'>Happy Customers</p>
           </div>
         </div>
       </article>

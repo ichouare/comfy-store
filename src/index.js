@@ -1,16 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import  '/Users/ichouare/Desktop/comfy-store/src/assets/Satoshi_Complete/Fonts/WEB/css/satoshi.css'
+import  './assets/Satoshi_Complete/Fonts/WEB/css/satoshi.css'
 import App from './App';
+import { ThemeProvider } from "./provider/theme-provider"
 
-
-
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 
 import { AuthProvider } from './context/AuthProvider';
 
@@ -22,7 +16,14 @@ root.render(
     
 
 <AuthProvider>
+<ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
 <App />
+</ThemeProvider>
 </AuthProvider>
 
 

@@ -11,12 +11,12 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 const Checkout = () => {
   const {cart, setCart} = useContext(AuthContext)
   return (<div className='w-full min-h-border  h-72 p-5 rounded-2xl border border-black/10 '>
-     <div className='capitalize text-black/60 font-normal font-Satoshi-Regular tracking-wide'>
+     <div className='capitalize text-black/60  dark:text-white font-normal font-Satoshi-Regular tracking-wide'>
       <h3 className=''> order summury </h3>
       <table className=' w-full h-[50%]'>
         <tr className='min-h-10 h-10'>
           <td className='font-normal '>Subtotal</td>
-          <td className='text-black font-bold'>{cart.cartTotal}$</td>
+          <td className='text-black  dark:text-white font-bold'>{cart.cartTotal}$</td>
         </tr>
         <tr className='min-h-10 h-10'>
         <td className='font-normal '>Discount</td>
@@ -24,14 +24,14 @@ const Checkout = () => {
         </tr>
         <tr className='min-h-10 h-10'>
         <td className='font-normal ' >Delivery fee</td>
-          <td className='text-black font-bold'>0$ </td>
+          <td className='text-black  dark:text-white font-bold'>0$ </td>
         </tr>
         <tr className='border-t min-h-10  h-12 py-2 '>
-        <td className='text-black'> Total</td>
-        <td className=' text-black font-bold ' >{cart.cartTotal}$</td>
+        <td className='text-black dark:text-white'> Total</td>
+        <td className=' text-black dark:text-white font-bold ' >{cart.cartTotal}$</td>
         </tr>
       </table>
-      <button className='w-full py-3 bg-black text-white rounded-3xl leading-6 capitalize tracking-wide cursor-pointer'> Go To checkoout <IoIosArrowRoundForward  className='inline text-3xl leading-4'/> </button>
+      <button className='w-full py-3 bg-black  dark:text-white text-white rounded-3xl leading-6 capitalize tracking-wide cursor-pointer'> Go To checkoout <IoIosArrowRoundForward  className='inline text-3xl leading-4'/> </button>
      </div>
   </div>)
 }
