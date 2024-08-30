@@ -10,15 +10,16 @@ class Product(models.Model):
     free = models.BooleanField(default=False)
     description = models.CharField(max_length=250, null=True, blank=True)
     added_date = models.DateTimeField(auto_now_add=True) 
-
+    image = models.ManyToManyField('ProductImage')
     category = models.ForeignKey(
         'Category',
         related_name='products',
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return f'{self.name}'
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_images/')
     alt_text = models.CharField(max_length=255, blank=True) 
 

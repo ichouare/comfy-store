@@ -45,13 +45,14 @@ const Counter = ({Count, setCount, handleCart}) => {
 const ProductDetails = ({data}) => {
     const {id ,name, price, free, image, description} = data
 
-    const imgs = Array(3).fill(image)
+    const imgs = [...image]
     const [currentImg, setCurrentImg] = useState(0)
     const [size, setSize] = useState('')
     const [Count, setCount] = useState(0)
     const img_ref  = useRef(null) 
-    imgs[1] = testImg //test
-    imgs[2] = testImg2 // test
+    // imgs[0] = image.image
+    // imgs[1] = testImg //test
+    // imgs[2] = testImg2 // test
 
     const {cart, setCart} = useContext(AuthContext)
 
@@ -112,17 +113,20 @@ const ProductDetails = ({data}) => {
             <div className='product_imgs w-full 
             sm:max-md:w-96 md:w-auto  flex flex-col sm:justify-center items-center justify-start  gap-4   md:flex-row-reverse'>
                 <div className='max-w-96 w-full  min-h-72 h-72 md:w-96 md:h-96  bg-product-bg rounded-2xl '>
-                    <img src={imgs[currentImg]} alt={name + "img"} className=' w-full h-full object-cover transition opacity-0' ref={img_ref} />
+                    <img src={imgs[currentImg].image} alt={imgs[currentImg].alt_text} className=' w-full h-full object-cover transition opacity-0' ref={img_ref} />
                 </div>
 
                 {/* <div className='w-full grid grid-flow-col md:grid-flow-row sm:gap-3  md:w-28 md:min-h-[100%] '> */}
                 <div className='max-w-96 w-full  gap-x-[5px] sm:w-96  md:w-auto md:h-96  flex justify-between  md:flex-col '>
                 {
-                    imgs.map((img, index) => (
+                    imgs.map((img, index) => {
+                        const {image, alt_text} = img
+                        return (
                         <div className='h-28 w-28 rounded-2xl bg-product-bg cursor-pointer ' key={index} onClick={() => setCurrentImg(index)}> 
-                            <img src={img} alt={name + "img"} className='w-full h-full object-fill' />
+                            <img src={image} alt={alt_text} className='w-full h-full object-fill' />
                         </div>
-                    ))
+                    )}
+                )
                 }
                 </div>
 
