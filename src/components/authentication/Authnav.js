@@ -29,7 +29,7 @@ const Authnav = () => {
             <p className="w-fit capitalize p-0 ">
             Sign up and get 20% off to your first order.  
             </p>
-            <Link  to="/login"  className="inline-block w-fit cursor-pointer capitalize underline sm:p-2     " >Sign Up Now</Link>
+           { auth && <Link  to="/login"  className="inline-block w-fit cursor-pointer capitalize underline sm:p-2     " >Sign Up Now</Link> }
                 {/* {
                     auth ? 
                     <button className="btn capitalize px-3 py-1 bg-blue-600 text-base text-white rounded-md"

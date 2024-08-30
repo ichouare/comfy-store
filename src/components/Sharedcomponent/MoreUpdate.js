@@ -20,7 +20,7 @@ const MoreUpdate = () => {
       <form  className="w-full flex flex-col  items-center gap-6 ">
         <input type='email' placeholder='enter your email address' className='h-12 rounded-[12px] w-full max-w-96 p-2  px-6  capitalize font-Satoshi-Regular  font-light bg-white text-black/80 outline-none' /> 
         <button type="submit" className="h-12 bg-white  cursor-pointer w-full   rounded-[12px]  text-black/50 max-w-96 font-Satoshi-Regular  font-light tracking-wide ">Subscribe to Newsletter</button>
-      </form>text-bla
+      </form>
     </Form>
     </div>
   )
