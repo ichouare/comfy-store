@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import AuthContext from 'src/context/AuthProvider'
 import Product  from '../Product/product'
+import apiInstance from 'src/axois/axios';
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiMinus, FiPlus} from "react-icons/fi";
 import { IoIosArrowRoundForward } from "react-icons/io";
@@ -40,16 +40,43 @@ const SaleProduct = ({data}) => {
   let {id, name, price, image, quantity} = data
   const {cart, setCart} = useContext(AuthContext)
   const [Qt, setQt] = useState(0)
-  const removeItem = (id) => {
-    console.log("removing item: " + cart.cartItems)
+  const removeItem = async (id) => {
       //  console.log(cart.cartItems.filter(item => item.id != id))
       //  cart.cartItems = cart.cartItems.filter(item => item.id != id)
         setCart(prev => ({...prev, 
           numItemsInCart : prev.numItemsInCart - quantity , 
           cartTotal : prev.cartTotal - (price * quantity) ,
           cartItems : cart.cartItems.filter(item => item.id != id)}))
-       console.log(quantity)
+          const res = await apiInstance.delete('/products/add_product_to_cart', {
+            data: { id: id },
+        });
+        console.log(res)
   }
+  useEffect( () => {
+    const updateCartInBackend = async () => {
+        try {
+            const res = await apiInstance.post('/products/add_product_to_cart', {
+                cart: cart,
+            });
+            // Handle the response if needed
+            console.log('Cart updated successfully', res.data);
+        } catch (error) {
+            console.error('Error updating cart', error);
+            // Handle error, show message to user, etc.
+        }
+    };
+
+    if (cart.numItemsInCart > 0) {  // Ensure we don't send unnecessary requests
+        updateCartInBackend();
+    }
+
+},[cart])
+
+
+
+
+
+
   return( 
     <div className='w-full h-auto  phone:h-32  md:h-40 rounded-lg justify-center items-center  flex gap-4 border  p-2 "  '>
       <div className='w-[50%] phone:w-[40%] h-full bg-product-bg  dark:bg-white grid place-content-center    rounded-[14px]  '>
@@ -84,7 +111,6 @@ const SaleProduct = ({data}) => {
                 <span className='text-lg cursor-pointer' 
                 onClick={() => {
                   setQt(prev => prev + 1)
-                  console.log(Qt)
                   cart.cartItems.forEach(element => {
                   if(element.id === id )
                     {

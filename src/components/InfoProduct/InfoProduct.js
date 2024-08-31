@@ -3,6 +3,7 @@ import { useParams } from'react-router-dom'
 import authIntance from '../../axois/axios'
 import AuthContext from '../../context/AuthProvider'
 import ProductDetails from './ProductDetails'
+import apiInstance from '../../axois/axios'
 
 
 const ProductInfo = ({data}) => {
@@ -10,13 +11,9 @@ const ProductInfo = ({data}) => {
     let {id, name, description, image, price, free     } = data
     const [number , setNumber] = useState(0)
 
-    if (!image.includes('http://localhost:8000/'))
-        {
-          image = `http://localhost:8000${image}`
-        }
+ 
     
     const handlecartItems = (id_product, quantity) => {
-        console.log("---->",  quantity)
         let {cartItems} = cart
         if (cartItems?.length === 0) {
             cartItems.push({
@@ -34,13 +31,37 @@ const ProductInfo = ({data}) => {
         return cartItems
     }
 
-    const handleCart = () => {
+    const handleCart = async () => {
+        console.log("handle click")
         setCart({...cart, 
             numItemsInCart :  number + cart.numItemsInCart , 
             cartTotal : (number * price ) + cart.cartTotal,
-            cartItems:   handlecartItems(id,  (cart.numItemsInCart) )
-            
-        })}
+            cartItems:   handlecartItems(id,  (cart.numItemsInCart) ) 
+        })
+        const res = await  apiInstance('/products/add_product_to_cart')
+        console.log("res------>", res)
+    }
+
+
+    useEffect( () => {
+        const updateCartInBackend = async () => {
+            try {
+                const res = await apiInstance.post('/products/add_product_to_cart', {
+                    cart: cart,
+                });
+                // Handle the response if needed
+                console.log('Cart updated successfully', res.data);
+            } catch (error) {
+                console.error('Error updating cart', error);
+                // Handle error, show message to user, etc.
+            }
+        };
+    
+        if (cart.numItemsInCart > 0) {  // Ensure we don't send unnecessary requests
+            updateCartInBackend();
+        }
+
+    },[cart])
 
 
     return (

@@ -16,12 +16,13 @@ import { useTheme } from "next-themes"
 
 import MoreUpdate from '../Sharedcomponent/MoreUpdate';
 import Backout from '../Sharedcomponent/Backout';
+import apiInstance from 'src/axois/axios';
 
 const Navbar = () => {
   const Menu = useRef(null)
   const [darkMode, setDarkMode] = useState(false);
   const [ShowMenu, setShowMenu] = useState(false);
-  const {auth, cart} = useContext(AuthContext)
+  const {auth, cart, setCart, setAuth} = useContext(AuthContext)
   const { setTheme } = useTheme()
   const navigation = [{
     path: '/',
@@ -65,7 +66,26 @@ useEffect(() => {
   return () => {
     window.removeEventListener('resize', handleResize);
   };
+
 }, [ShowMenu])
+
+
+useEffect(()=> {
+  const check_session = async () => {
+    try {
+        const res = await apiInstance('/check_session');
+        // Handle the response if needed
+        const info = await apiInstance('/products/get_cart_of_user')
+        setCart(info.data)
+        
+        console.log('Cart updated successfully', info.data);
+    } catch (error) {
+        console.error('Error updating cart', error);
+        // Handle error, show message to user, etc.
+    }
+};
+check_session()
+}, [])
 
   return (
     <main className='w-full  min-w-full h-auto min-h-screen flex flex-col items-center justify-start  pb-4 font-Satoshi-Light '>

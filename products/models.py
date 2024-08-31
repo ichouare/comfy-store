@@ -19,6 +19,7 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
 class ProductImage(models.Model):
     image = models.ImageField(upload_to='product_images/')
     alt_text = models.CharField(max_length=255, blank=True) 
@@ -27,7 +28,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
 class Company(models.Model):
     name = models.DateTimeField(auto_now_add=True) 
@@ -37,16 +38,19 @@ class Company(models.Model):
         return f'{self.id}'
 
 class Order(models.Model):
-    user = models.ForeignKey(User, blank=True, null=True,  on_delete=models.PROTECT)
-    date = models.CharField(max_length=100)
+    user = models.ForeignKey(User, blank=True, null=True,  on_delete=models.CASCADE)
+    product_shop_id = models.ManyToManyField('product_shop')
+    quantity = models.PositiveIntegerField(default='0')
+    Total = models.DecimalField(max_digits = 10 , decimal_places = 2, null = True, blank = True)
+    date = models.DateTimeField(auto_now = True)
     
     def __str__(self):
-        return self.name
+        return f'order_id : {self.id} '
 
 class product_shop(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE , related_name="products")
     Order_id = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_id") 
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField(default='0')
 
     def __str__(self):
         return f'{self.id}'

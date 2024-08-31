@@ -1,11 +1,10 @@
-import React , {useState, useRef, useContext} from 'react'
-import testImg  from '../../assets/Tshirt2.png'
-import testImg2  from '../../assets/Tshirt3.png'
+import React , {useState, useRef, useContext, useEffect} from 'react'
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react"
 import { FiMinus, FiPlus} from "react-icons/fi";
 import NewArrival from '../Sharedcomponent/nweArrival';
 import AuthContext from '../../context/AuthProvider';
+import apiInstance from 'src/axois/axios';
 
 
 
@@ -71,6 +70,7 @@ const ProductDetails = ({data}) => {
 
     // setup some logic for the cart and add items for   it 
     const handlecartItems = (id_product, quantity) => {
+
         let {cartItems} = cart
         if(cartItems.filter( item => item.id == id_product)?.length)
         {
@@ -78,7 +78,7 @@ const ProductDetails = ({data}) => {
             cartItems = cartItems.map( item => item.id === id_product? {...item, quantity : quantity + item.quantity  } : item )
         }
         else{
-            console.log("---->",  quantity)
+           
             cartItems.push({
                 id : id_product,
                 name : name,
@@ -90,21 +90,37 @@ const ProductDetails = ({data}) => {
         return cartItems
     }
 
-    const handleCart = () => {
+    const handleCart =  () => {
         if(!Count)
                 return
-        console.log(cart)
         let total =  Count + cart.numItemsInCart
         setCart({...cart, 
             numItemsInCart : total , 
             cartTotal : (Count * price ) + cart.cartTotal,
-            cartItems:   handlecartItems(id,  (Count) )
+            cartItems:   handlecartItems(id,  Count )
             
-        })}
+        })
+    }
 
+    useEffect( () => {
+        const updateCartInBackend = async () => {
+            try {
+                const res = await apiInstance.post('/products/add_product_to_cart', {
+                    cart: cart,
+                });
+                // Handle the response if needed
+                console.log('Cart updated successfully', res.data);
+            } catch (error) {
+                console.error('Error updating cart', error);
+                // Handle error, show message to user, etc.
+            }
+        };
+    
+        if (cart.numItemsInCart > 0) {  // Ensure we don't send unnecessary requests
+            updateCartInBackend();
+        }
 
-    // console.log(cart)
-    // console.log(cart.cartItems.length)
+    },[cart])
 
     return (
     <section className='w-full min-h-screen h-full  flex flex-col items-center justify-center p-4 gap-4     '>

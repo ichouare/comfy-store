@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import productsSerialzer, CategorySerialzer
+from .serializers import productsSerialzer, CategorySerialzer, OrderSerialzer
 # Create your views here.
 from django.shortcuts import render 
 from rest_framework.response import Response
@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework import generics
 from .models import Product, Category
 from rest_framework.permissions import IsAuthenticated
+from .models import Order, product_shop
 
 @api_view(['GET'])
 def cart(request, *args, **kwargs):
@@ -97,3 +98,56 @@ def get_categorys(request):
             return Response(serializer.data, status=200)
         except Category.DoesNotExist:
             return Response("Category not found", status=400)
+
+
+@api_view(['POST', 'DELETE'])
+
+def add_product_to_cart(request):
+    if request.method == 'POST':
+        order, created = Order.objects.get_or_create(user= request.user, defaults={
+            'user' : request.user,
+            'quantity' : request.data['cart']['numItemsInCart'],
+            'Total' : request.data['cart']['cartTotal'],
+        })
+        if not created :
+            order.quantity = request.data['cart']['numItemsInCart']
+            order.Total = int(request.data['cart']['cartTotal'])
+            order.save()
+
+        if order:
+            for item in request.data['cart']['cartItems']:
+                productShop, created = product_shop.objects.get_or_create(Order_id = order,product_id__id = item['id'] ,  defaults={
+                'product_id' : Product.objects.get(id = item['id']),
+                'Order_id' : order,
+                'quantity' : item['quantity'],
+             }) 
+                if not created:
+                    productShop.quantity = item['quantity']
+                    productShop.save()  # Ensure the object is saved after modification
+                    print("Updated quantity:", productShop.quantity)
+                order.product_shop_id.add(productShop)
+                order.save()
+           
+        return Response("items add", status=200)
+    if request.method == 'DELETE':
+        print("data for delete it ", request.data['id'])
+        order = Order.objects.get(user = request.user)
+        if order :
+            product_to_remove = product_shop.objects.get(Order_id = order , product_id__id = request.data['id'])
+            quantity =  product_to_remove.quantity
+            price =  product_to_remove.product_id.price
+            order.quantity -= quantity 
+            order.Total -= (quantity  * price)
+            order.save()
+            product_to_remove.delete()
+            return Response("delete porduct from cart", status=200)
+
+
+
+@api_view(['GET'])
+def get_cart_of_user(request):
+    if request.method =='GET':
+        order = Order.objects.get(user = request.user)
+        serializer = OrderSerialzer(order, many=False)
+        print("order of user ----------->", order )
+        return Response(serializer.data, status=200)

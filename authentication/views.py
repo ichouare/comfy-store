@@ -53,20 +53,15 @@ class refresh_token(TokenObtainPairView):
         return Response("refresh_token", status=200)
 
     def post(self, request, format=None):
-        print("step--------------->0")
         response = Response()
         refresh_token = request.COOKIES.get('refresh')
         if refresh_token is None:
-            print("step--------------->1")
             return Response("not refresh token is provide in cookies" , status=400)
             # Attempt to create a RefreshToken instance from the refresh token
         refresh = RefreshToken(refresh_token)
-        print("step--------------->", refresh)
         if refresh is None:
-            print("step--------------->2")
             return Response("not refresh token is provide in cookies" , status=401)
         else:
-            print("ste3----÷----------->2")
             access_token = str(refresh.access_token)
             response.set_cookie(
                         
@@ -133,9 +128,15 @@ class Login(TokenObtainPairView):
 @permission_classes([IsAuthenticated])
 def logout(request):
     if(request.method == 'POST'):
-  
         response = Response()
         response.delete_cookie('access') 
         response.delete_cookie('refresh')
         response.status_code = 200
         return response
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+
+def check_session(request):
+    return Response("is logged", status=200)
