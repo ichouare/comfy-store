@@ -32,3 +32,7 @@ class OrderSerialzer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+    def to_representation(self, obj):
+        primitive_repr = super(OrderSerialzer, self).to_representation(obj)
+        primitive_repr['cartItems'] = primitive_repr['product_shop_id']
+        return primitive_repr 

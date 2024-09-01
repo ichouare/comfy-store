@@ -7,6 +7,7 @@ import filterIcon from '../../assets/filter.svg'
 import gsap from 'gsap';
 import { FiPlus } from "react-icons/fi";
 import Paginations from '../Sharedcomponent/Paginations'
+import ProductsInLoading from './ProductsInLoading'
 
 const Lists = ({elemments, setState,  state }) => {
 //        console.log(elemments)
@@ -32,7 +33,6 @@ const Products = () => {
 
         const form = useRef()
         const [range , setRange] = useState(0)
-        const [gridState , setgridState] = useState(true)
         const value = useRef(0)
         const Company = ["all" ,"Mondeza", "Luxera", "comfora" ]
         const sortage = ["a-z", "high", "low" ]
@@ -44,6 +44,7 @@ const Products = () => {
         const [size, setSize] = useState("")
         const [data, setData] = useState([])
         const [show, setShow] = useState(false)
+        const [loading , setLoading] = useState(true)
         
 
 const handlefilter = (e) => {
@@ -66,6 +67,7 @@ const getCategories = async () => {
         setcategories(categories)
 }
 const get_all_products = async () => { 
+        setLoading(true)
         const response = await  apiInstance.get('/products/products', { params: {
                 category: category,
                 free: free,
@@ -76,12 +78,14 @@ const get_all_products = async () => {
         }})
         const {data} = response
         setData(data)
+        setLoading(false)
 }
 
 useEffect(() => {
 
         getCategories()
         get_all_products() 
+   
 }, [])
 
 
@@ -225,9 +229,17 @@ return (
                     <button  type="submit" className='grow-0 h-[40px] max-w-[80%] w-[80%]  px-5  text-center text-base  text-white/85 bg-black dark:bg-blue-500 font-Satoshi-Regular  font-normal  tracking-wide leading-4 capitalize  rounded-[40px] self-center md:my-auto' onClick={(e) => handleSearch(e)} > search </button>
         </form>
         <div className='flex h-full    flex-row w-full mt-5    '>
-        <div className='w-full  h-full  md:pt-12 grid gap-y-4  md:gap-4 grid-cols-1 phone:grid-cols-2  sm:grid-cols-3  lg:grid-cols-4 place-items-center sm:place-content-start p-0 sm:p-[10px] ' >
-        {data?.length ?  data.map ((ele, index) => <Product  data={ele} key={index}  /> ) : <div className='w-[100%] col-span-2 h-full flex justify-center ' > ops!! no product </div>} 
-        </div>
+        {
+  loading ? (
+     <ProductsInLoading />
+  ) : (
+    <div className='w-full h-full md:pt-12 grid gap-y-4 md:gap-4 grid-cols-1 phone:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 place-items-center sm:place-content-start p-0 sm:p-[10px]'>
+      {data.map((ele, index) => (
+        <Product data={ele} key={index} />
+      ))}
+    </div>
+  )
+}
         </div>
         <div className=' place-self-end'>
                 <Paginations />

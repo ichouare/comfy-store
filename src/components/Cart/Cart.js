@@ -37,20 +37,23 @@ const Checkout = () => {
 }
 
 const SaleProduct = ({data}) => {
-  let {id, name, price, image, quantity} = data
+  console.log("--------------?>", data);
+  let {product_id, quantity } = data  
+  const {id, image, name, free, price,} = product_id
   const {cart, setCart} = useContext(AuthContext)
   const [Qt, setQt] = useState(0)
+  console.log(Qt)
   const removeItem = async (id) => {
       //  console.log(cart.cartItems.filter(item => item.id != id))
       //  cart.cartItems = cart.cartItems.filter(item => item.id != id)
-        setCart(prev => ({...prev, 
-          numItemsInCart : prev.numItemsInCart - quantity , 
-          cartTotal : prev.cartTotal - (price * quantity) ,
-          cartItems : cart.cartItems.filter(item => item.id != id)}))
-          const res = await apiInstance.delete('/products/add_product_to_cart', {
-            data: { id: id },
-        });
-        console.log(res)
+        // setCart(prev => ({...prev, 
+        //   numItemsInCart : prev.numItemsInCart - quantity , 
+        //   cartTotal : prev.cartTotal - (price * quantity) ,
+        //   cartItems : cart.cartItems.filter(item => item.id != id)}))
+        //   // const res = await apiInstance.delete('/products/add_product_to_cart', {
+        //   //   data: { id: id },
+        // });
+        // console.log(res)
   }
   useEffect( () => {
     const updateCartInBackend = async () => {
@@ -80,7 +83,7 @@ const SaleProduct = ({data}) => {
   return( 
     <div className='w-full h-auto  phone:h-32  md:h-40 rounded-lg justify-center items-center  flex gap-4 border  p-2 "  '>
       <div className='w-[50%] phone:w-[40%] h-full bg-product-bg  dark:bg-white grid place-content-center    rounded-[14px]  '>
-          <img src={image} alt='' className=' h-[100%] w-full  md:scale-75 object-fill'/>
+          <img src={image[0].image} alt={image[0].alt_text} className=' h-[100%] w-full  md:scale-75 object-fill'/>
         </div>
         <div className='w-full h-full flex gap-2 flex-col md:justify-between  text-black'>
         <FaRegTrashAlt  className='text-red-400 min-h-3  cursor-pointer self-end' id="delete" onClick={()=> {
@@ -89,10 +92,11 @@ const SaleProduct = ({data}) => {
 
         }}  />
         <h3 className='text-start text-sm  font-normal  font-Satoshi-Regular  capitalize  p-0'>{name}</h3>
-        <p className='text-start '>$ {price * quantity}   {quantity} </p>
+        <p className='text-start '>$ {price * (quantity + Qt)}   {quantity + Qt} </p>
             <div className='flex items-center justify-between p-2 bg-zinc-100 w-32  rounded-2xl min-h-8 h-8 text-base self-end'>
                 <span className='text-lg cursor-pointer' onClick={() => {
                   setQt(prev => prev  > 0 ? prev - 1 : 0)
+                 
                   cart.cartItems.forEach(element => {
                     if(element.id === id && element.quantity > 0)
                       {
@@ -102,28 +106,29 @@ const SaleProduct = ({data}) => {
                     })
                     setCart( prev => ({...prev, 
                       numItemsInCart : prev.numItemsInCart > 0 ? prev.numItemsInCart - 1  : 0, 
-                      cartTotal : (prev.cartTotal -  (price * (quantity - Qt))) ||  0,
+                      cartTotal : parseFloat(prev.cartTotal)  + (price * (Qt - quantity)) ||  0,
                     
                     }))
                     console.log( cart.cartTotal)
                 }} > <FiMinus className='' /> </span>
-                <p className='font-light'>{quantity}</p>
+                <p className='font-light'>{quantity + Qt}</p>
                 <span className='text-lg cursor-pointer' 
                 onClick={() => {
                   setQt(prev => prev + 1)
                   cart.cartItems.forEach(element => {
-                  if(element.id === id )
-                    {
+                    if(element.product_id.id === id )
+                      {
+                        console.log(element.quantity)
+                        element.quantity += 1
+                      }
+                      setCart( prev => ({...prev, 
+                        numItemsInCart : prev.numItemsInCart + 1, 
+                        cartTotal :  parseFloat(prev.cartTotal)  + (price * (element.quantity - Qt))
+                    }))
                       
-                      element.quantity++
-                    }
-                    
-                  })
-                  setCart( prev => ({...prev, 
-                    numItemsInCart : prev.numItemsInCart + 1, 
-                    cartTotal : prev.cartTotal + (price * (quantity - Qt)),
-                  }))
-                }}   
+                    })
+                  console.log(cart.cartTotal) 
+                }}  
                 > <FiPlus /></span>
             </div>
       </div>
@@ -140,7 +145,7 @@ console.log(cart)
 
        {/* <h1 className='text-[#394E6A] text-2xl tracking-wide mb-2'>Your Cart Is Empty</h1> */}
        <div className='w-full    h-full   grid gap-y-4  gap-4  grid-cols-1   place-items-start  ' >
-        {cart?.cartItems?.length ?  cart?.cartItems.map ((ele, index) => <SaleProduct  data={ele}key={index}  /> ) : <div className='w-[100%] col-span-2 h-full flex justify-center ' > ops!! no product </div>} 
+        {cart?.cartItems?.length ?  cart?.product_shop_id?.map ((ele, index) => <SaleProduct  data={ele} key={index}  /> ) : <div className='w-[100%] col-span-2 h-full flex justify-center ' > ops!! no product </div>} 
         </div>
         <Checkout />
       </div>

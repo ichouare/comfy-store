@@ -78,7 +78,7 @@ useEffect(()=> {
         const info = await apiInstance('/products/get_cart_of_user')
         setCart(info.data)
         
-        console.log('Cart updated successfully', info.data);
+        console.log('-------------->', cart);
     } catch (error) {
         console.error('Error updating cart', error);
         // Handle error, show message to user, etc.
@@ -140,7 +140,7 @@ check_session()
           <p className='font-Satoshi-Regular  font-light text-base self-start '>Shop.co © 2024-2025, All Rights Reserved</p>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d362112.02892318607!2d-6.77243329240814!3d32.63922705135367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda427fa6cc01abd%3A0x81e42d2370814027!2sKhouribga!5e0!3m2!1sfr!2sma!4v1724596891735!5m2!1sfr!2sma" width="400" height="150" 
           style={{ border :  0 }}
-          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </footer>
     </main>
   )

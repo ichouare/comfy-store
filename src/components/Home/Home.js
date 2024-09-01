@@ -17,7 +17,7 @@ import AuthContext from '../../context/AuthProvider'
 
 
 import { Link } from 'react-router-dom'
-import NewArrival from '../Sharedcomponent/nweArrival'
+import NewArrival from '../Sharedcomponent/newArrival'
 import DressStyle from './DressStyle'
 import MoreUpdate from '../Sharedcomponent/MoreUpdate'
 

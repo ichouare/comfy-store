@@ -2,7 +2,7 @@ import React , {useState, useRef, useContext, useEffect} from 'react'
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react"
 import { FiMinus, FiPlus} from "react-icons/fi";
-import NewArrival from '../Sharedcomponent/nweArrival';
+import NewArrival from '../Sharedcomponent/newArrival';
 import AuthContext from '../../context/AuthProvider';
 import apiInstance from 'src/axois/axios';
 
@@ -123,7 +123,7 @@ const ProductDetails = ({data}) => {
     },[cart])
 
     return (
-    <section className='w-full min-h-screen h-full  flex flex-col items-center justify-center p-4 gap-4     '>
+    <section className='w-full min-h-screen h-full  flex flex-col items-start justify-start p-4 gap-4     '>
            <div className='w-full relative  sm:flex gap-6      sm:h-auto items-center justify-center  '>
 
             <div className='product_imgs w-full 

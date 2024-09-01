@@ -4,6 +4,7 @@ import authIntance from '../../axois/axios'
 import AuthContext from '../../context/AuthProvider'
 import ProductDetails from './ProductDetails'
 import apiInstance from '../../axois/axios'
+import DataInfoLoding from './dataInfoLoding'
 
 
 const ProductInfo = ({data}) => {
@@ -118,9 +119,7 @@ const InfoProduct = () => {
     }, [id])
 
     if(loading){
-        return (<section className='w-[100%] h-screen flex items-center justify-center'>
-            <h1>loading...</h1>
-        </section> )
+        return ( <DataInfoLoding /> )
     }
     else if (!loading && product)
         {

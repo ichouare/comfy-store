@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from'react'
 import apiInstance from '../../axois/axios' 
 import Product  from '../Product/product'
-import axios from 'axios'
+import NewArrivalLoading from './NewArrivalLoadng'
 
 
 import {
@@ -18,22 +18,26 @@ import {
 
 const NewArrival = ({title}) => {
     const [fourProduct, setFourProduct] = useState([])
+    const [loading,setLoading] = useState(true)
     useEffect( () => {
         // fetchData()
         const getData = async () => {
           try{
+            setLoading(true)
             const response = await apiInstance.get('/products/fourProduct/', {
               withCredentials: true,
             })
             const {data} = response
+            setLoading(false)  // here we set loading to false to hide the loading spinner  
             setFourProduct(data)
           }catch(error){
             console.log(error)
+            setLoading(true)
           }
         };
         getData();
       }, [])
-
+  if (loading) return <NewArrivalLoading />
   return (
     <div className='w-[100%]  max-sm:w-full   h-auto flex flex-col items-center justify-evenly px-2  py-8  '>
     <h1 className='w-full text-center  text-3xl tracking-wide mb-2 uppercase font-bold  font-Satoshi-Bold   '>{title}</h1>
@@ -50,8 +54,6 @@ const NewArrival = ({title}) => {
      }
       )}
     </CarouselContent>
-    <CarouselPrevious  className="hidden md:flex " />
-  <CarouselNext className="hidden md:flex" />
     </Carousel>
     <button className="w-[200px]  capitalize font-Satoshi-Medium  font-mediu border  rounded-3xl py-2 " > view all</button>
   </div> 

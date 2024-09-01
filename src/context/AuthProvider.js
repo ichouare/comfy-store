@@ -9,9 +9,6 @@ export const AuthProvider = ({children}) => {
     const [cart, setCart] = useState({
         "cartTotal" : 0,
         "numItemsInCart" : 0,
-        "orderTotal" : 0 , 
-        "shipping" : 0 , 
-        "tax" : 0 ,
         "cartItems" : [],
     })
     return (<AuthContext.Provider value={{auth, setAuth, cart, setCart}}>

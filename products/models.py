@@ -40,8 +40,8 @@ class Company(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, blank=True, null=True,  on_delete=models.CASCADE)
     product_shop_id = models.ManyToManyField('product_shop')
-    quantity = models.PositiveIntegerField(default='0')
-    Total = models.DecimalField(max_digits = 10 , decimal_places = 2, null = True, blank = True)
+    numItemsInCart = models.PositiveIntegerField(default='0')
+    cartTotal = models.DecimalField(max_digits = 10 , decimal_places = 2, null = True, blank = True)
     date = models.DateTimeField(auto_now = True)
     
     def __str__(self):
