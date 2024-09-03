@@ -55,7 +55,7 @@ const NewArrival = ({title}) => {
       )}
     </CarouselContent>
     </Carousel>
-    <button className="w-[200px]  capitalize font-Satoshi-Medium  font-mediu border  rounded-3xl py-2 " > view all</button>
+    <button className="w-[200px]  capitalize font-Satoshi-Medium  font-mediu border  rounded-3xl py-2  dark:bg-blue-500" > view all</button>
   </div> 
   )
 }

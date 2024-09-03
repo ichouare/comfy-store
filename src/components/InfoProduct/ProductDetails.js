@@ -14,11 +14,11 @@ const Size = ({size, setSize}) => {
 
     return (
         <div className='w-full  pt-1  min-h-28    flex flex-col   gap-4 border-b sm:border-0'>
-        <h4 className='font-Satoshi-Light  font-normal text-base text-black/50 tracking-wide'>Choose Size</h4>
+        <h4 className='font-Satoshi-Light  font-normal text-base text-black/50  dark:text-white tracking-wide'>Choose Size</h4>
         <div className='w-full  grid grid-flow-col grid-cols-2 grid-rows-2 py-2 phone:py-0  phone:max-sm:max-w-[350px] phone:grid-cols-1 phone:grid-rows-1 lg:grid-cols-1 lg:grid-rows-1 sm:max-lg:grid-cols-2 sm:max-lg:grid-rows-2  gap-2 '>   
             {
                 sizes.current.map((sz, index) => (
-                    <button key={index} className={`h-10 text-sm capitalize px-4 py-2.5  rounded-2xl bg-zinc-100 font-Satoshi-Regular  font-light  ${sz === size? 'active': ''}`} onClick={() => setSize(sz)}>{sz}</button>
+                    <button key={index} className={`h-10 text-sm capitalize px-4 py-2.5  rounded-2xl bg-zinc-100 font-Satoshi-Regular  font-light  dark:text-black ${sz === size? 'active': ''}`} onClick={() => setSize(sz)}>{sz}</button>
                 ))
             }
         </div>
@@ -31,12 +31,12 @@ const Size = ({size, setSize}) => {
 const Counter = ({Count, setCount, handleCart}) => {
     return (
         <div className='w-full h-full pt-1   min-h-16 grid  grid-cols-[minmax(104px,_170px)_minmax(104px,_1fr)]  gap-4 border-b items-center sm:max-lg:items-end sm:border-0  '>
-            <div className='flex items-center justify-between p-3 bg-zinc-100 rounded-2xl min-h-10 h-10 text-xl'>
+            <div className='flex items-center justify-between p-3 bg-zinc-100 rounded-2xl min-h-10 h-10 text-xl dark:text-black'>
                 <span className='text-lg cursor-pointer ' onClick={() => setCount(Count ? Count-- : 0 )}> <FiMinus className='' /> </span>
                 <p className=''>{Count}</p>
-                <span className='text-lg cursor-pointer'  onClick={() => setCount(Count++)}> <FiPlus /></span>
+                <span className='text-lg cursor-pointer  '  onClick={() => setCount(Count++)}> <FiPlus /></span>
             </div>
-            <button className='w-full  min-h-10 h-10 bg-black text-white text-base rounded-2xl font-Satoshi-Regular  font-medium '  onClick={() => handleCart()} >Add to Cart</button>
+            <button className='w-full  min-h-10 h-10 bg-black dark:bg-blue-500 text-white text-base rounded-2xl font-Satoshi-Regular  font-medium '  onClick={() => handleCart()} >Add to Cart</button>
         </div>
     )
 }
@@ -96,7 +96,7 @@ const ProductDetails = ({data}) => {
         let total =  Count + cart.numItemsInCart
         setCart({...cart, 
             numItemsInCart : total , 
-            cartTotal : (Count * price ) + cart.cartTotal,
+            cartTotal : (Count * price ) + parseFloat(cart.cartTotal),
             cartItems:   handlecartItems(id,  Count )
             
         })
@@ -133,13 +133,13 @@ const ProductDetails = ({data}) => {
                 </div>
 
                 {/* <div className='w-full grid grid-flow-col md:grid-flow-row sm:gap-3  md:w-28 md:min-h-[100%] '> */}
-                <div className='max-w-96 w-full  gap-x-[5px] sm:w-96  md:w-auto md:h-96  flex justify-between  md:flex-col '>
+                <div className='max-w-96 w-full  gap-x-[5px] sm:w-96  md:w-auto md:h-96  flex justify-start gap-2  md:flex-col '>
                 {
                     imgs.map((img, index) => {
                         const {image, alt_text} = img
                         return (
                         <div className='h-28 w-28 rounded-2xl bg-product-bg cursor-pointer ' key={index} onClick={() => setCurrentImg(index)}> 
-                            <img src={image} alt={alt_text} className='w-full h-full object-fill' />
+                            <img src={image} alt={alt_text} className='w-full h-full object-contain' />
                         </div>
                     )}
                 )

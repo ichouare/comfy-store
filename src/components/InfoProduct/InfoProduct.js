@@ -36,11 +36,11 @@ const ProductInfo = ({data}) => {
         console.log("handle click")
         setCart({...cart, 
             numItemsInCart :  number + cart.numItemsInCart , 
-            cartTotal : (number * price ) + cart.cartTotal,
+            cartTotal : parseFloat( number * price ) + parseFloat(cart.cartTotal),
             cartItems:   handlecartItems(id,  (cart.numItemsInCart) ) 
         })
+        console.log("res------>", cart.cartTotal)
         const res = await  apiInstance('/products/add_product_to_cart')
-        console.log("res------>", res)
     }
 
 

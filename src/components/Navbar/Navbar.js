@@ -98,7 +98,7 @@ check_session()
           <img src={Logo} className='w-32  h-full object-fill dark:bg-white cursor-pointer' alt='logo'/>
 
         </div>
-        <nav  ref={Menu} className='min-w-[300px]  md:w-[300px] flex  flex-col gap-4 md:gap-1 px-4 py-2 md:p-0 md:flex-row absolute z-40 md:relative w-full top-24  md:top-0  bottom-0 right-0 left-0   bg-white  md:bg-transparent items-center gap-x-8   '>
+        <nav  ref={Menu} className='min-w-[300px]  md:w-[300px] flex  flex-col gap-4 md:gap-1 px-4 py-2 md:p-0 md:flex-row absolute z-40 md:relative w-full top-24  md:top-0  bottom-0 right-0 left-0   bg-white  md:bg-transparent items-center gap-x-8   dark:bg-black '>
         {
           navigation.map(({path, name}, index) => (
             
